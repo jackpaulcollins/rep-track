@@ -1,5 +1,12 @@
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
+  resources :challenge_units
+  resources :challenges do
+    post "add_units", on: :member
+  end
+  resources :reports
+  post "challenge_enrollments/:challenge_id/enroll", to: "challenge_enrollments#enroll", as: "enroll_challenge_enrollment"
+  post "challenge_enrollments/:challenge_id/unenroll", to: "challenge_enrollments#unenroll", as: "unenroll_challenge_enrollment"
   draw :turbo
 
   # Jumpstart views

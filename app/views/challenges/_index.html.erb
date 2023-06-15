@@ -1,0 +1,5 @@
+<div id="<%= dom_id(challenge, :index) %>">
+  <%= turbo_stream_from challenge %>
+  <%= render challenge %>
+  <%= link_to "View", challenge, class: "btn btn-white" %>
+</div>

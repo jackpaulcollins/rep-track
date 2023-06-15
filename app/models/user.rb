@@ -69,6 +69,9 @@ class User < ApplicationRecord
   has_many :connected_accounts, as: :owner, dependent: :destroy
   has_many :notifications, as: :recipient, dependent: :destroy
   has_many :notification_tokens, dependent: :destroy
+  has_many :challenge_enrollments
+  has_many :challenges, through: :challenge_enrollments
+  has_many :reports, dependent: :destroy
 
   # We don't need users to confirm their email address on create,
   # just when they change it

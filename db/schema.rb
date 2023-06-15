@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_03_180159) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_15_035208) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -132,6 +132,40 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_03_180159) do
     t.datetime "updated_at", null: false
     t.index ["token"], name: "index_api_tokens_on_token", unique: true
     t.index ["user_id"], name: "index_api_tokens_on_user_id"
+  end
+
+  create_table "challenge_enrollments", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "challenge_id", null: false
+    t.bigint "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_challenge_enrollments_on_account_id"
+    t.index ["challenge_id"], name: "index_challenge_enrollments_on_challenge_id"
+    t.index ["user_id", "challenge_id"], name: "index_challenge_enrollments_on_user_id_and_challenge_id", unique: true
+    t.index ["user_id"], name: "index_challenge_enrollments_on_user_id"
+  end
+
+  create_table "challenge_units", force: :cascade do |t|
+    t.string "rep_name"
+    t.integer "points"
+    t.bigint "challenge_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_challenge_units_on_challenge_id"
+  end
+
+  create_table "challenges", force: :cascade do |t|
+    t.string "name", null: false
+    t.date "start_date", null: false
+    t.date "end_date"
+    t.boolean "public", null: false
+    t.bigint "account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "challenge_owner_id", null: false
+    t.index ["account_id"], name: "index_challenges_on_account_id"
+    t.index ["challenge_owner_id"], name: "index_challenges_on_challenge_owner_id"
   end
 
   create_table "connected_accounts", force: :cascade do |t|
@@ -280,6 +314,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_03_180159) do
     t.boolean "charge_per_unit"
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "challenge_unit_id", null: false
+    t.bigint "challenge_enrollment_id", null: false
+    t.integer "rep_count", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_enrollment_id"], name: "index_reports_on_challenge_enrollment_id"
+    t.index ["challenge_unit_id"], name: "index_reports_on_challenge_unit_id"
+    t.index ["user_id"], name: "index_reports_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -327,7 +373,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_03_180159) do
   add_foreign_key "accounts", "users", column: "owner_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "api_tokens", "users"
+  add_foreign_key "challenge_enrollments", "accounts"
+  add_foreign_key "challenge_enrollments", "challenges"
+  add_foreign_key "challenge_enrollments", "users"
+  add_foreign_key "challenge_units", "challenges"
+  add_foreign_key "challenges", "accounts"
+  add_foreign_key "challenges", "users", column: "challenge_owner_id"
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
   add_foreign_key "pay_payment_methods", "pay_customers", column: "customer_id"
   add_foreign_key "pay_subscriptions", "pay_customers", column: "customer_id"
+  add_foreign_key "reports", "challenge_enrollments"
+  add_foreign_key "reports", "challenge_units"
+  add_foreign_key "reports", "users"
 end

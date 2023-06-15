@@ -1,0 +1,36 @@
+# == Schema Information
+#
+# Table name: reports
+#
+#  id                      :bigint           not null, primary key
+#  rep_count               :integer          not null
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  challenge_enrollment_id :bigint           not null
+#  challenge_unit_id       :bigint           not null
+#  user_id                 :bigint           not null
+#
+# Indexes
+#
+#  index_reports_on_challenge_enrollment_id  (challenge_enrollment_id)
+#  index_reports_on_challenge_unit_id        (challenge_unit_id)
+#  index_reports_on_user_id                  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (challenge_enrollment_id => challenge_enrollments.id)
+#  fk_rails_...  (challenge_unit_id => challenge_units.id)
+#  fk_rails_...  (user_id => users.id)
+#
+
+one:
+  user: one
+  challenge_unit: one
+  challenge_enrollment: one
+  rep_count: 1
+
+two:
+  user: two
+  challenge_unit: two
+  challenge_enrollment: two
+  rep_count: 1

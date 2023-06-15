@@ -1,0 +1,23 @@
+<div>
+  <%= form_with model: Report.new, url: reports_path, method: :post do |form| %>
+    <div>
+      <%= form.label :challenge_unit, "Rep", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.collection_select :challenge_unit_id,
+                                  @challenge.challenge_units,
+                                  :id,
+                                  :rep_name %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :rep_count %>
+      <%= form.number_field :rep_count, class: "form-control" %>
+    </div>
+
+    <%= form.hidden_field :challenge_enrollment_id, value: enrollment.id %>
+
+    <div class="flex flex-wrap items-center justify-end mt-8">
+      <%= form.button button_text("Submit"), class: "btn btn-primary" %>
+      <button class="ml-2 btn btn-primary" data-action="click->modal#close">Cancel</button>
+    </div>
+  <% end %>
+</div>

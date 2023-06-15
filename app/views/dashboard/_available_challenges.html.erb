@@ -1,0 +1,12 @@
+<ul role="list" class="space-y-3">
+  <% challanges.each do |c| %>
+    <%= link_to challenge_path(c) do %>
+      <li class="overflow-hidden rounded-md bg-white px-6 py-4 shadow list-none">
+        <div class="flex flex-row justify-between">
+          <p><%= c.name %></p>
+          <p>starts on: <%= c.start_date %></p>
+        </div>
+      </li>
+    <% end %>
+  <% end %>
+</ul>

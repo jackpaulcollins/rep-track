@@ -4,6 +4,9 @@
   @apply font-bold leading-tight tracking-tight;
 }
 
+.text-dark-green {
+  @apply text-green-900
+}
 
 h1,
 .h1 {

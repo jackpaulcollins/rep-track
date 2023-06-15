@@ -1,0 +1,28 @@
+<%= form_with(model: ChallengeUnit.new, url: add_units_challenge_path(challenge), local: true, id: "challenge-unit-form", data: { controller: "challenge-form" }) do |form| %>
+  <%= turbo_frame_tag "challenge-#{@challenge.id}-units-notice" do %>
+  <% end %>
+  <div class="flex flex-col" data-challenge-form-target="row" id="form-section">
+
+    <div class="flex flew-row form-row items-center">
+      <div class="form-group w-1/4">
+        <%= form.label :rep_name %>
+        <%= form.text_field :rep_name, name: 'challenge_units[][challenge_unit][rep_name]', class: "form-control" %>
+      </div>
+
+      <div class="form-group ml-2 w-1/12">
+        <%= form.label :points %>
+        <%= form.number_field :points, name: 'challenge_units[][challenge_unit][points]', class: "form-control" %>
+      </div>
+
+      <div class="ml-4" id="delete-section"></div>
+    </div>
+  </div>
+
+  <div>
+    <div>
+      <%= form.button "Add Rep", data: { action: "click->challenge-form#add" }, class: "btn btn-primary" %>
+      <%= form.button button_text("Create Challenge"), class: "btn btn-primary" %>
+      <%= link_to 'Discard', challenge_path(@challenge), class: "btn btn-danger btn-outline", method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>
+  </div>
+<% end %>

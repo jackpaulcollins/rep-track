@@ -1,0 +1,39 @@
+
+<%= form_with model: challenge, id: dom_id(challenge) do |form| %>
+  <%= render "shared/error_messages", resource: form.object %>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :start_date %>
+    <%= form.date_field :start_date, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :end_date %>
+    <%= form.date_field :end_date, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <div class="inline-flex" data-controller="tooltip" data-tippy-content="Anyone can join a public challenge. Leave unchecked if you'd like to limit participation to members of the current account">
+      <i class="fa-solid fa-circle-info"></i>
+    </div>
+    <div class="flex flex-row items-top">
+      <%= form.label :public %>
+      <%= form.check_box :public, class: "ml-2 mt-0.5" %>
+    </div>
+  </div>
+
+  <div>
+    <%= form.button button_text(form.send(:submit_default_value)), class: "btn btn-primary" %>
+
+    <% if form.object.new_record? %>
+      <%= link_to t("cancel"), challenges_path, class: "btn btn-white" %>
+    <% else %>
+      <%= link_to t("cancel"), challenge_path(@challenge), class: "btn btn-white" %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,27 @@
+<div id="<%= dom_id challenge %>">
+ <div class="flex flex-row w-full justify-evenly mb-12">
+    <div class="flex flex-col items-center">
+      <p class="text-lg font-medium text-gray-500">Name</p>
+      <%= challenge.name %>
+    </div>
+    <div class="flex flex-col items-center">
+      <p class="text-lg font-medium text-gray-500">Start date</p>
+      <%= challenge.start_date %>
+    </div>
+    <div class="flex flex-col items-center">
+      <p class="text-lg font-medium text-gray-500">End date</p>
+      <%= challenge.end_date.nil? ? "n/a" :  challenge.end_date %>
+    </div>
+    <div class="flex flex-col items-center">
+      <p class="text-lg font-medium text-gray-500">Public</p>
+      <%= challenge.public_data_display %>
+    </div>
+  </div>
+
+  <div class="mb-12">
+    <%= render partial: "challenge_units_table", locals: { challenge_units: challenge.challenge_units } %>
+  </div>
+  <div class="mt-12">
+    <%= render partial: "challenge_participants_table", locals: { participants: challenge.challenge_enrollments } %>
+  </div>
+</div>

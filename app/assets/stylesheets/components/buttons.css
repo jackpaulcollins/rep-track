@@ -154,6 +154,10 @@ button[disabled]        .when-enabled { display: none; }
     @apply text-green-700 bg-green-100 focus:ring-green-700;
   }
 
+  .btn-dark-green {
+    @apply text-green-700 bg-green-300 focus:ring-green-600;
+  }
+
   .btn-light-red {
     @apply text-red-700 bg-red-100 focus:ring-red-700;
   }
