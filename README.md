@@ -1,112 +1,48 @@
-# Jumpstart Pro Rails Template
+#Rep Tracking Web Application
 
-All your Rails apps should start off with a bunch of great defaults.
+This is a web application built with Rails 7 that allows users to track their reps and participate in body challenges. Users can sign up, create challenges, invite friends to join, and submit reports of the reps they have completed. The application provides a leaderboard to showcase the results of the challenges.
 
-## Getting Started
+##Installation
+To run the application locally, follow these steps:
 
-Jumpstart Pro is a preconfigured Rails application, so you can either
-download the code or clone this repository and add your own repo as a
-remote to merge in updates.
-
-#### Requirements
-
-You'll need the following installed to run the template successfully:
-
-* Ruby 3.0 or higher
-* Node.js v18
-* bundler - `gem install bundler`
-* Redis - For ActionCable support (and Sidekiq, caching, etc)
-* PostgreSQL - `brew install postgresql`
-* Libvips or Imagemagick - `brew install vips imagemagick`
-* Yarn - `npm install --global yarn` [Install Yarn](https://yarnpkg.com/en/docs/install)
-* [Overmind](https://github.com/DarthSim/overmind) or Foreman - `brew install tmux overmind` or `gem install foreman` - helps run all your processes in development
-* [Stripe CLI](https://stripe.com/docs/stripe-cli) for Stripe webhooks in development - `brew install stripe/stripe-cli/stripe`
-
-All Homebrew dependencies are listed in `Brewfile`, so you can install them all at once like this:
+###Clone the repository to your local machine:
 
 ```bash
-brew bundle install --no-upgrade
+git clone https://github.com/your-username/rep-tracking-app.git
+Navigate to the project directory:
+```
+```bash
+cd rep-tracking-app
+Install the required dependencies using Bundler:
+```
+```bash
+bundle install
+Set up the database and seed initial data:
+```
+```bash
+rails db:setup
+Install JavaScript dependencies using Yarn:
+```
+```bash
+yarn install
 ```
 
-Then you can start the database servers:
+###Usage
+To start the application, run the following command:
 
-```bash
-brew services start postgresql
-brew services start redis
-```
-
-#### Initial Setup
-
-First, edit `config/database.yml` and change the database name.
-
-Run `bin/setup` to install Rubygem and Javascript dependencies. This will also install `foreman` system wide for you and setup your database.
-
-```bash
-bin/setup
-```
-
-Optionally, you can rename the application name in `config/application.rb`. This won't affect anything, so it's not too important.
-
-You can also rename the app in the Jumpstart config UI which updates the app name in the navbar, footer, etc.
-
-#### Running Jumpstart Pro
-
-To run your application, you'll use the `bin/dev` command:
-
-```bash
+ ```bash
 bin/dev
 ```
+This will start the Rails server and make the application available at http://localhost:3000. Open your web browser and visit this URL to access the application.
 
-This starts up Overmind (or fallback to Foreman) running the Procfile.dev config.
+Contributing
+Contributions to this project are welcome. If you have any suggestions, bug reports, or feature requests, please open an issue on the GitHub repository.
 
-We've configured this to run the Rails server, CSS bundling, and JS bundling out of the box. You can add background workers like Sidekiq, the Stripe CLI, etc to have them run at the same time.
+To contribute code, follow these steps:
 
-Here's a couple of useful Overmind commands:
-
-```sh
-# Debugging with byebug: connect to the `web` process to be able to input commands:
-overmind connect web
-# Then disconnect by hitting [Ctrl+B] (or your tmux prefix) and then [D].
-
-# Restart a process without restarting all the other ones:
-overmind restart web
-
-# If something goes wrong, you can kill all running processes:
-overmind kill
-```
-
-#### Windows Support
-
-If you'd like to run Jumpstart Pro on Windows, we recommend using WSL2. You can find instructions here: https://gorails.com/setup/windows
-
-Alternatively, if you'd like to use Docker on Windows, you'll need to make sure you clone the repository and preserve the Linux line endings.
-
-```bash
-git clone git@github.com:username/myrepo.git --config core.autocrlf=input
-```
-
-#### Running with Docker Compose
-
-We include a sample Docker Compose configuration that runs Rails, Postgresql, and Redis for you.
-
-Simply run:
-```
-docker-compose up
-```
-
-Then open http://localhost:3000
-
-#### Running with Docker
-
-If you'd like to run Jumpstart Pro with Docker directly, you can run:
-
-```bash
-docker build --tag myapp .
-docker run -p 3000:3000 myapp
-```
-
-If you'd like to use the fullstaq-ruby or other Dockerfile you can specify them as:
-
-```bash
-docker build -f ./Dockerfile.fullstaq-ruby .
-```
+Fork the repository.
+Create a new branch for your feature or bug fix.
+Make your changes and commit them with descriptive commit messages.
+Push your changes to your forked repository.
+Open a pull request on the main repository, explaining your changes.
+Please ensure that your code follows the project's coding style and includes appropriate tests.
