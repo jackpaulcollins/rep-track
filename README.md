@@ -5,24 +5,25 @@ This is a web application built with Rails 7 that allows users to track their re
 ## Installation
 To run the application locally, follow these steps:
 
-### Clone the repository to your local machine:
+#### Clone the repository to your local machine:
 
 ```bash
 git clone https://github.com/your-username/rep-tracking-app.git
-Navigate to the project directory:
 ```
+#### Navigate to the app:
 ```bash
 cd rep-tracking-app
-Install the required dependencies using Bundler:
 ```
+#### Install the required dependencies using Bundler:
 ```bash
 bundle install
-Set up the database and seed initial data:
 ```
+#### Set up the database and seed initial data:
 ```bash
 rails db:setup
-Install JavaScript dependencies using Yarn:
 ```
+
+#### Install JavaScript dependencies:
 ```bash
 yarn install
 ```
@@ -40,9 +41,8 @@ Contributions to this project are welcome. If you have any suggestions, bug repo
 
 To contribute code, follow these steps:
 
-Fork the repository.
-Create a new branch for your feature or bug fix.
-Make your changes and commit them with descriptive commit messages.
-Push your changes to your forked repository.
-Open a pull request on the main repository, explaining your changes.
-Please ensure that your code follows the project's coding style and includes appropriate tests.
+* Fork the repository.
+* Create a new branch for your feature or bug fix.
+* Make your changes and commit them with descriptive commit messages.
+* Push your changes to your forked repository.
+* Open a pull request on the main repository, explaining your changes.
