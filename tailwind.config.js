@@ -33,6 +33,7 @@ module.exports = {
         danger: colors.red,
         "code-400": "#fefcf9",
         "code-600": "#3c455b",
+        orange: "#fb923c",
       },
       fontFamily: {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],

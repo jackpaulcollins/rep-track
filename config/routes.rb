@@ -2,7 +2,13 @@
 Rails.application.routes.draw do
   resources :challenge_units
   resources :challenges do
-    post "add_units", on: :member
+    member do
+      post :add_units
+      get :leaderboard, to: "challenges#challenge_leaderboard"
+    end
+    collection do
+      get :my_challenges, to: "challenges#current_user_challenges"
+    end
   end
   resources :reports
   post "challenge_enrollments/:challenge_id/enroll", to: "challenge_enrollments#enroll", as: "enroll_challenge_enrollment"

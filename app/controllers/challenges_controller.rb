@@ -3,11 +3,24 @@ class ChallengesController < ApplicationController
   before_action :set_challenge, only: [:show, :edit, :update, :destroy, :add_units]
   before_action :authenticate_user!
 
-  # Uncomment to enforce Pundit authorization
-  # after_action :verify_authorized
-  # rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  def current_user_challenges
+    @challenges = Challenge.current_user_enrolled_challenges(current_user)
+  end
 
-  # GET /challenges
+  def challenge_leaderboard
+    challenge = Challenge.includes(:reports, :challenge_units, :users).find(147)
+
+    reports_by_user = challenge.reports.group_by { |report| [report.user.first_name, report.user.last_name] }
+
+    # returns a hash of users/sum of points in DESC order
+    # { <#User>: points, <#User>: points }
+    @leader_board = reports_by_user.each_with_object({}) do |(k, v), hash|
+      hash[k] = v.map(&:point_value).sum
+    end.sort_by { |_key, value| value }.reverse.to_h
+
+    render "challenge_leaderboard"
+  end
+
   def index
     @pagy, @challenges = pagy(Challenge.sort_by_params(params[:sort], sort_direction))
 

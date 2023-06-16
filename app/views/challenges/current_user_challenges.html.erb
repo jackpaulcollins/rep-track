@@ -1,5 +1,6 @@
+<h5>Challenges you're enrolled in</h5>
 <ul role="list" class="space-y-3">
-  <% challanges.each do |c| %>
+  <% @challenges.each do |c| %>
     <%= link_to challenge_path(c) do %>
       <li class="overflow-hidden rounded-md bg-white px-6 py-4 shadow list-none">
         <div class="flex flex-row justify-between">

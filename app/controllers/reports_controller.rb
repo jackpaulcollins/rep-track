@@ -56,6 +56,6 @@ class ReportsController < ApplicationController
   end
 
   def report_params
-    params.require(:report).permit(:challenge_unit_id, :challenge_enrollment_id, :rep_count)
+    params.require(:report).permit(:challenge_id, :challenge_unit_id, :challenge_enrollment_id, :rep_count)
   end
 end

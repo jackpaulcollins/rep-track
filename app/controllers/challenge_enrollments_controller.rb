@@ -16,7 +16,7 @@ class ChallengeEnrollmentsController < ApplicationController
 
   def unenroll
     respond_to do |format|
-      if @challenge.unenroll!(current_user)
+      if @challenge.unenroll!(params[:user_id])
         format.html { redirect_to @challenge, notice: "Successfully unenrolled in challenge 😔" }
         format.json { render :show, status: :ok, location: @challenge }
       else

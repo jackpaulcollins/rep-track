@@ -21,4 +21,6 @@ class ChallengeUnit < ApplicationRecord
   belongs_to :challenge
   validates :rep_name, presence: true
   validates :points, presence: true
+
+  has_many :reports
 end

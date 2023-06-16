@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_15_035208) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_15_225542) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -321,7 +321,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_15_035208) do
     t.integer "rep_count", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "challenge_id"
     t.index ["challenge_enrollment_id"], name: "index_reports_on_challenge_enrollment_id"
+    t.index ["challenge_id"], name: "index_reports_on_challenge_id"
     t.index ["challenge_unit_id"], name: "index_reports_on_challenge_unit_id"
     t.index ["user_id"], name: "index_reports_on_user_id"
   end
@@ -384,5 +386,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_15_035208) do
   add_foreign_key "pay_subscriptions", "pay_customers", column: "customer_id"
   add_foreign_key "reports", "challenge_enrollments"
   add_foreign_key "reports", "challenge_units"
+  add_foreign_key "reports", "challenges"
   add_foreign_key "reports", "users"
 end

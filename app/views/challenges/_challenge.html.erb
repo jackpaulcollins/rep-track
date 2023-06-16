@@ -1,4 +1,4 @@
-<div id="<%= dom_id challenge %>">
+<div class="flex flex-col" id="<%= dom_id challenge %>">
  <div class="flex flex-row w-full justify-evenly mb-12">
     <div class="flex flex-col items-center">
       <p class="text-lg font-medium text-gray-500">Name</p>
@@ -18,10 +18,17 @@
     </div>
   </div>
 
-  <div class="mb-12">
-    <%= render partial: "challenge_units_table", locals: { challenge_units: challenge.challenge_units } %>
-  </div>
-  <div class="mt-12">
-    <%= render partial: "challenge_participants_table", locals: { participants: challenge.challenge_enrollments } %>
+  <div class="flex flex-row w-full">
+    <div class="w-1/2">
+      <div class="mb-12">
+        <%= render partial: "challenge_units_table", locals: { challenge_units: challenge.challenge_units } %>
+      </div>
+      <div class="mt-12">
+        <%= render partial: "challenge_participants_table", locals: { participants: challenge.challenge_enrollments } %>
+      </div>
+    </div>
+    <div class="w-1/2">
+      <%= render "challenge_leaderboard", { challenge: challenge } %>
+    </div>
   </div>
 </div>

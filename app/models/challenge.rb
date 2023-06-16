@@ -33,7 +33,11 @@ class Challenge < ApplicationRecord
 
   validates :start_date, presence: true
   validates :name, presence: true
-  # Broadcast changes in realtime with Hotwire
+
+  scope :current_user_enrolled_challenges, ->(user) {
+    joins(:challenge_enrollments).where(challenge_enrollments: {user_id: user.id})
+  }
+
   after_create_commit -> { broadcast_prepend_later_to :challenges, partial: "challenges/index", locals: {challenge: self} }
   after_update_commit -> { broadcast_replace_later_to self }
   after_destroy_commit -> { broadcast_remove_to :challenges, target: dom_id(self, :index) }
@@ -42,12 +46,16 @@ class Challenge < ApplicationRecord
     public? ? "Yes" : "No"
   end
 
+  def end_date_display
+    end_date || "-"
+  end
+
   def enroll!(user)
     challenge_enrollments.build(user: user, account: account).save!
   end
 
-  def unenroll!(user)
-    challenge_enrollments.where(user: user).destroy_all
+  def unenroll!(user_id)
+    challenge_enrollments.where(user_id: user_id).destroy_all
   end
 
   def user_can_enroll?(user)
@@ -68,5 +76,15 @@ class Challenge < ApplicationRecord
 
   def enrollment_for_user(user)
     challenge_enrollments.where(user_id: user.id).take
+  end
+
+  def leaderboard
+    reports_by_user = reports.group_by { |report| [report.user.first_name, report.user.last_name] }
+
+    leaderboard = reports_by_user.each_with_object({}) do |(user, reports), hash|
+      hash[user] = reports.sum(&:point_value)
+    end
+
+    leaderboard.sort_by { |_, value| value }.reverse.to_h
   end
 end
