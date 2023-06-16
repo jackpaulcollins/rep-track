@@ -1,18 +1,27 @@
-<div class="py-32 max-w-2xl m-auto text-center flex flex-col items-center justify-center">
-  <h1 class="mb-2">Welcome to Jumpstart</h1>
-  <p class="mb-6 text-gray-700 leading-normal text-xl">Jumpstart is the perfect starting point for your next Ruby on Rails app. Skip the boilerplate setup and build your app faster.</p>
+<div class="container mx-auto p-8 bg-white rounded shadow mt-8">
+  <div class="text-center">
+    <h2 class="text-orange-600 font-semibold">Welcome to RepTrack!</h2>
 
-  <% if Rails.env.development? %>
-    <div class="flex flex-col items-center md:flex-row">
-      <div class="w-full md:w-auto">
-        <%= link_to "Configure Jumpstart", jumpstart_path, data: { turbo: false }, class: "btn btn-primary lg:mr-4 mr-0 lg:mb-0 mb-4" %>
-      </div>
+    <p class="underline text-orange-600 font-semibold">With RepTrack, you can invite your friends, set up challenges, and watch your progress soar on the leaderboard.</p>
 
-      <div>
-        <span class="hidden md:inline border border-gray-200 h-10 mr-4"></span>
-        <%= link_to "Create a User", new_user_registration_path, class: "btn btn-tertiary btn-outline lg:mr-4 mr-0 lg:mb-0 mb-4" %>
-        <%= link_to "Read the Docs", jumpstart.docs_path, target: :_blank, data: { turbo: false }, class: "btn btn-tertiary btn-outline lg:mr-4 mr-0 lg:mb-0 mb-4" %>
-      </div>
-    </div>
-  <% end %>
+    <h4 class="text-left mt-12">Here's how it works:</h4>
+
+    <ol class="text-left mt-4">
+      <li class="text-s mb-2">Sign up and Create Challenges: Start by creating an account on RepTrack. Once you're in, you can create challenges tailored to your goals. Choose the number of reps for each exercise and assign a value to each rep based on its difficulty. This way, you can challenge yourself and your friends in a fair and exciting way.</li>
+
+      <li class="text-s mb-2">Invite Friends: What's a challenge without some friendly competition? Invite your friends to join your challenges and push each other to new heights. You can easily send invitations to your friends through RepTrack, and they'll be ready to accept the challenge in no time.</li>
+
+      <li class="text-s mb-2">Enroll and Submit Reports: Once your friends have accepted your challenge, they can enroll and start tracking their progress. After each workout session, they can submit reports detailing the reps they completed for each exercise. RepTrack will automatically calculate the total points earned based on the reps and their assigned values.</li>
+
+      <li class="text-s mb-2">Track Results on the Leaderboard: Get ready for some thrilling competition! The leaderboard will showcase the rankings of all challenge participants based on their performance and accumulated points. Check your progress, compare your scores, and see who's leading the pack. It's a great way to stay motivated and see how you stack up against your friends.</li>
+    </ol>
+
+    <p class="mt-8 text-s">
+    RepTrack is more than just a tracking tool—it's a community that fuels your fitness journey. Celebrate achievements, share encouragement, and cheer each other on as you conquer challenges together.
+
+    Join RepTrack today and experience the power of friendly competition in reaching your fitness goals. Start tracking your reps, challenging your friends, and dominating the leaderboard. It's time to take control of your progress and achieve greatness, one rep at a time!
+    </p>
+
+    <%= link_to "Create your first challenge!", new_challenge_path, class: "btn btn-primary m-auto mt-8" %>
+  </div>
 </div>
