@@ -1,11 +1,11 @@
-#Rep Tracking Web Application
+# Rep Tracking Web Application
 
 This is a web application built with Rails 7 that allows users to track their reps and participate in body challenges. Users can sign up, create challenges, invite friends to join, and submit reports of the reps they have completed. The application provides a leaderboard to showcase the results of the challenges.
 
-##Installation
+## Installation
 To run the application locally, follow these steps:
 
-###Clone the repository to your local machine:
+### Clone the repository to your local machine:
 
 ```bash
 git clone https://github.com/your-username/rep-tracking-app.git
@@ -27,7 +27,7 @@ Install JavaScript dependencies using Yarn:
 yarn install
 ```
 
-###Usage
+### Usage
 To start the application, run the following command:
 
  ```bash
