@@ -3,9 +3,11 @@
 
 <div class="container px-4 mx-auto my-8">
   <div class="flex items-center justify-between mb-4">
-    <div>
-      <h1 class="h3">Challenges</h1>
-
+      <div>
+        <div class="flex flex-col justify-start mb-8">
+        <h1 class="h3">Challenges</h1>
+        <span class="text-xs text-gray-500">challenges available to enroll in</span>
+      </div>
       <div class="text-sm font-medium">
         <span class="text-gray-500">Sort by:</span>
         <%= sortable @challenges, :name, "Name", class: "text-gray-700 mr-1" %>

@@ -4,7 +4,7 @@ class ChallengesController < ApplicationController
   before_action :authenticate_user!
 
   def current_user_challenges
-    @challenges = Challenge.current_user_enrolled_challenges(current_user)
+    @pagy, @challenges = pagy(Challenge.current_user_enrolled_challenges(current_user).sort_by_params(params[:sort], sort_direction))
   end
 
   def challenge_leaderboard
@@ -22,7 +22,7 @@ class ChallengesController < ApplicationController
   end
 
   def index
-    @pagy, @challenges = pagy(Challenge.sort_by_params(params[:sort], sort_direction))
+    @pagy, @challenges = pagy(Challenge.current_user_not_enrolled_challenges(current_user).sort_by_params(params[:sort], sort_direction))
 
     # Uncomment to authorize with Pundit
     # authorize @challenges

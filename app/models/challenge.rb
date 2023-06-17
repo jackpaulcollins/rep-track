@@ -38,6 +38,10 @@ class Challenge < ApplicationRecord
     joins(:challenge_enrollments).where(challenge_enrollments: {user_id: user.id})
   }
 
+  scope :current_user_not_enrolled_challenges, ->(user) {
+    joins(:challenge_enrollments).where.not(challenge_enrollments: {user_id: user.id})
+  }
+
   after_create_commit -> { broadcast_prepend_later_to :challenges, partial: "challenges/index", locals: {challenge: self} }
   after_update_commit -> { broadcast_replace_later_to self }
   after_destroy_commit -> { broadcast_remove_to :challenges, target: dom_id(self, :index) }
