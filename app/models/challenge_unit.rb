@@ -22,5 +22,5 @@ class ChallengeUnit < ApplicationRecord
   validates :rep_name, presence: true
   validates :points, presence: true
 
-  has_many :reports
+  has_many :reports, dependent: :destroy
 end
