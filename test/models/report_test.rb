@@ -6,6 +6,7 @@
 #  rep_count               :integer          not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  account_id              :bigint           default(2), not null
 #  challenge_enrollment_id :bigint           not null
 #  challenge_id            :bigint
 #  challenge_unit_id       :bigint           not null
@@ -13,6 +14,7 @@
 #
 # Indexes
 #
+#  index_reports_on_account_id               (account_id)
 #  index_reports_on_challenge_enrollment_id  (challenge_enrollment_id)
 #  index_reports_on_challenge_id             (challenge_id)
 #  index_reports_on_challenge_unit_id        (challenge_unit_id)
@@ -20,6 +22,7 @@
 #
 # Foreign Keys
 #
+#  fk_rails_...  (account_id => accounts.id)
 #  fk_rails_...  (challenge_enrollment_id => challenge_enrollments.id)
 #  fk_rails_...  (challenge_id => challenges.id)
 #  fk_rails_...  (challenge_unit_id => challenge_units.id)
