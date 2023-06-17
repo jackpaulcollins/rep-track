@@ -12,6 +12,12 @@ class ReportsController < ApplicationController
   def edit
   end
 
+  def index
+    @pagy, reports = pagy(Report.includes(:challenge).for_user(current_user).sort_by_params(params[:sort], sort_direction))
+
+    @reports_by_challenge = reports.group_by { |report| report.challenge.name }
+  end
+
   def create
     @report = Report.new(report_params)
     @report.user = current_user

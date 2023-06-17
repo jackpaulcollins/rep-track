@@ -39,6 +39,8 @@ class Report < ApplicationRecord
   after_update_commit -> { broadcast_replace_later_to self }
   after_destroy_commit -> { broadcast_remove_to :reports, target: dom_id(self, :index) }
 
+  scope :for_user, ->(user) { where(user: user) }
+
   def challenge_unit_belongs_to_challenge_enrollment
     challenge_unit.challenge_id == challenge_enrollment.challenge_id
   end

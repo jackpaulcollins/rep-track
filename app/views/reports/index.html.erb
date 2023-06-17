@@ -1,0 +1,29 @@
+<%= content_for :title, "Reports" %>
+<%= turbo_stream_from :reports %>
+
+<div class="container px-4 mx-auto my-8">
+  <div class="flex items-center justify-between mb-4">
+    <div>
+      <h1 class="h3">My Reports</h1>
+
+      <div class="text-sm font-medium">
+        <span class="text-gray-500">Sort by:</span>
+        <%= sortable @reports_by_challenge, :points, "Points", class: "text-gray-700 mr-1" %>
+        <%= sortable @reports_by_challenge, :created_at, "Date", class: "text-gray-700 mr-1" %>
+      </div>
+    </div>
+  </div>
+
+  <%= tag.div id: ("reports" if first_page?) do %>
+    <%= render "reports/index", { reports_by_challenge: @reports_by_challenge } %>
+    <div class="hidden only:flex flex-col items-center justify-between lg:flex-row">
+      <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
+    </div>
+  <% end %>
+
+  <% if @pagy.pages > 1 %>
+    <div class="my-6 text-center">
+      <%== pagy_nav(@pagy) %>
+    </div>
+  <% end %>
+</div>
