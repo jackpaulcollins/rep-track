@@ -6,7 +6,7 @@
 #  rep_count               :integer          not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  account_id              :bigint           default(2), not null
+#  account_id              :bigint           not null
 #  challenge_enrollment_id :bigint           not null
 #  challenge_id            :bigint
 #  challenge_unit_id       :bigint           not null
