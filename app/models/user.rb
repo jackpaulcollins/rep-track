@@ -83,9 +83,14 @@ class User < ApplicationRecord
   # Validations
   validates :name, presence: true
   validates :avatar, resizable_image: true
+  before_validation :set_default_timezone
 
   # When ActionText rendering mentions in plain text
   def attachable_plain_text_representation(caption = nil)
     caption || name
+  end
+
+  def set_default_timezone
+    self.time_zone ||= "Pacific Time (US & Canada)" if time_zone.nil?
   end
 end
