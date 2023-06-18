@@ -3,7 +3,7 @@
   <div class="overflow-hidden bg-white shadow sm:rounded-md">
     <ul class="list-none divide-y divide-gray-200">
       <% reports.each do |report| %>
-        <turbo_frame id="edit-form" src="" target="_top">
+        <turbo_frame id="edit-form">
           <li class="list-none" id="<%= dom_id report %>">
             <div class="flex items-center px-4 py-4 sm:px-6">
               <div class="flex flex-1 min-w-0">
