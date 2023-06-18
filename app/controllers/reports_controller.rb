@@ -1,4 +1,5 @@
 class ReportsController < ApplicationController
+  include ActionView::RecordIdentifier
   before_action :set_report, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
@@ -11,8 +12,8 @@ class ReportsController < ApplicationController
 
   def edit
     @report = Report.find(params[:id])
-    render turbo_stream: turbo_stream.replace("edit-form", partial: "reports/edit_form")
-  end
+    render turbo_stream: turbo_stream.replace(dom_id(@report, 'edit-form'), partial: "reports/edit_form")
+  end  
 
   def index
     @pagy, reports = pagy(Report.includes(:challenge).for_user(current_user).sort_by_params(params[:sort], sort_direction))
