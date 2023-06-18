@@ -1,7 +1,7 @@
 <% @reports_by_challenge.each do |challenge, reports| %>
   <h4 class="m-4"><%= link_to challenge, challenge_path(reports[0].challenge) %></h4>
   <div class="overflow-hidden bg-white shadow sm:rounded-md">
-    <ul role="list" class="list-none divide-y divide-gray-200">
+    <ul role="list" class="list-none">
       <% reports.each do |report| %>
           <turbo_frame id="<%= dom_id report, 'edit-form' %>">
             <li>
