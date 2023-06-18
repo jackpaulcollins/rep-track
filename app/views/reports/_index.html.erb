@@ -3,27 +3,29 @@
   <div class="overflow-hidden bg-white shadow sm:rounded-md">
     <ul class="list-none divide-y divide-gray-200">
       <% reports.each do |report| %>
-        <li class="list-none" id="<%= dom_id report %>">
-          <div class="flex items-center px-4 py-4 sm:px-6">
-            <div class="flex flex-1 min-w-0">
-              <div class="flex-1 min-w-0 px-4 md:grid md:grid-cols-2 md:gap-4">
-                <p class="text-sm font-medium truncate">
-                  <span class="text-xl font-semibold"><%= report.rep_count %></span>
-                  <span class="text-gray-500 font-light"><%= report.challenge_unit.rep_name.pluralize %></span>
-                </p>
-                <p class="text-sm font-medium truncate">
-                  <span class="text-xl font-semibold"><%= report.point_value %></span>
-                  <span class="text-gray-500 font-light">points</span>
+        <turbo_frame id="edit-form" src="" target="_top">
+          <li class="list-none" id="<%= dom_id report %>">
+            <div class="flex items-center px-4 py-4 sm:px-6">
+              <div class="flex flex-1 min-w-0">
+                <div class="flex-1 min-w-0 px-4 md:grid md:grid-cols-2 md:gap-4">
+                  <p class="text-sm font-medium truncate">
+                    <span class="text-xl font-semibold"><%= report.rep_count %></span>
+                    <span class="text-gray-500 font-light"><%= report.challenge_unit.rep_name.pluralize %></span>
+                  </p>
+                  <p class="text-sm font-medium truncate">
+                    <span class="text-xl font-semibold"><%= report.point_value %></span>
+                    <span class="text-gray-500 font-light">points</span>
+                  </p>
+                </div>
+                <p class="flex flex-row mt-2 text-sm text-gray-800 align-center">
+                  <span class="text-sm font-semibold mr-2">Completed On</span>
+                  <span><%= report.created_at.in_time_zone(current_user.time_zone).strftime('%Y-%m-%d %l:%M%P') %></span>
+                  <%= link_to 'Edit', edit_report_path(report), class: 'text-indigo-600 hover:text-indigo-900 ml-4 font-semibold', data: { turbo_frame: 'edit-form' } %>
                 </p>
               </div>
-              <p class="flex flex-row mt-2 text-sm text-gray-800 align-center">
-                <span class="text-sm font-semibold mr-2">Completed On</span>
-                <span><%= report.created_at.in_time_zone(current_user.time_zone).strftime('%Y-%m-%d %l:%M%P') %></span>
-                <a href="#" class="text-indigo-600 hover:text-indigo-900 ml-4 font-semibold">Edit</a>
-              </p>
             </div>
-          </div>
-        </li>
+          </li>
+        </turbo_frame>
       <% end %>
     </ul>
   </div>

@@ -10,6 +10,8 @@ class ReportsController < ApplicationController
   end
 
   def edit
+    @report = Report.find(params[:id])
+    render turbo_stream: turbo_stream.replace("edit-form", partial: "reports/edit_form")
   end
 
   def index
@@ -36,7 +38,7 @@ class ReportsController < ApplicationController
   def update
     respond_to do |format|
       if @report.update(report_params)
-        format.html { redirect_to @report.challenge, notice: "Report was successfully updated." }
+        format.html { redirect_to reports_path, notice: "Report was successfully updated." }
         format.json { render :show, status: :ok, location: @report }
       else
         format.html { render :edit, status: :unprocessable_entity }
