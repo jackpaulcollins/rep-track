@@ -3,7 +3,7 @@
     <div class="flex flex-row items-center">
         <div class="w-1/3">
           <div class="flex flex-row items-center w-1/2 m-auto">
-            <%= form.label :challenge_unit, "Rep type", class: "text-sm font-medium text-gray-700 mr-2" %>
+            <%= form.label :challenge_unit, "Type", class: "text-sm font-medium mr-2" %>
             <%= form.collection_select :challenge_unit_id,
                                       @report.challenge.challenge_units,
                                       :id,
@@ -12,16 +12,22 @@
           </div>
         </div>
         <div class="w-1/3 m-auto">
-          <div class="flex flex-row items-center text-sm font-medium truncate w-1/3">
-            <%= form.label :rep_count, class: "mr-2" %>
+          <div class="flex flex-row items-center text-sm font-medium truncate w-1/2">
+            <%= form.label :count, class: "mr-2" %>
             <%= form.number_field :rep_count, class: "form-control" %>
+            <%= form.submit "update", class: "text-indigo-600 hover:text-indigo-900 font-semibold ml-4" %>
           </div>
         </div>
         <div class="flex flex-row w-1/3 text-sm text-gray-800 justify-end">
-          <%= form.submit "Update", class: "text-indigo-600 hover:text-indigo-900 font-semibold mr-4" %>
+          <%= button_to report_path(@report), method: :delete, class: "text-black font-semibold hover:text-danger-900", data: { confirm: "Are you sure you want to destroy this report?" } do %>
+            <span class="mr-4">
+              <i class="fa-solid fa-trash"></i>
+            </span>
+          <% end %>
+
           <%= link_to reports_path, class: "text-danger-600 font-semibold hover:text-danger-900", data: { turbo_frame_action: "replace", turbo_frame_target: "edit-form" } do %>
             <span class="mr-1">
-              <i class="fas fa-times"></i>
+              cancel
             </span>
           <% end %>          
         </div>

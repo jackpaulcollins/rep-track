@@ -51,7 +51,7 @@ class ReportsController < ApplicationController
   def destroy
     @report.destroy
     respond_to do |format|
-      format.html { redirect_to challenges_url, status: :see_other, notice: "Report was successfully destroyed." }
+      format.html { redirect_to reports_path, status: :see_other, notice: "Report was successfully destroyed." }
       format.json { head :no_content }
     end
   end
