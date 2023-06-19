@@ -39,7 +39,8 @@ class Challenge < ApplicationRecord
   }
 
   scope :current_user_not_enrolled_challenges, ->(user) {
-    joins(:challenge_enrollments).where.not(challenge_enrollments: {user_id: user.id})
+    joins("LEFT JOIN challenge_enrollments ON challenges.id = challenge_enrollments.challenge_id AND challenge_enrollments.user_id = #{user.id}")
+      .where(challenge_enrollments: { id: nil })
   }
 
   after_create_commit -> { broadcast_prepend_later_to :challenges, partial: "challenges/index", locals: {challenge: self} }
