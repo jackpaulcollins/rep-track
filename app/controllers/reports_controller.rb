@@ -12,8 +12,8 @@ class ReportsController < ApplicationController
 
   def edit
     @report = Report.find(params[:id])
-    render turbo_stream: turbo_stream.replace(dom_id(@report, 'edit-form'), partial: "reports/edit_form")
-  end  
+    render turbo_stream: turbo_stream.replace(dom_id(@report, "edit-form"), partial: "reports/edit_form")
+  end
 
   def index
     @pagy, reports = pagy(Report.includes(:challenge).for_user(current_user).sort_by_params(params[:sort], sort_direction))
