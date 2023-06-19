@@ -27,4 +27,6 @@ class ChallengeEnrollment < ApplicationRecord
   belongs_to :challenge
   belongs_to :account
   has_many :reports, dependent: :destroy
+
+  acts_as_tenant :account
 end

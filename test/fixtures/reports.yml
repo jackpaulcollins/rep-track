@@ -34,9 +34,11 @@ one:
   challenge_unit: one
   challenge_enrollment: one
   rep_count: 1
+  account: one
 
 two:
   user: two
   challenge_unit: two
   challenge_enrollment: two
   rep_count: 1
+  account: one

@@ -71,6 +71,7 @@ class User < ApplicationRecord
   has_many :notification_tokens, dependent: :destroy
   has_many :challenge_enrollments
   has_many :challenges, through: :challenge_enrollments
+  has_many :challenges, class_name: "Challenge", foreign_key: "challenge_owner_id", dependent: :destroy
   has_many :reports, dependent: :destroy
 
   # We don't need users to confirm their email address on create,
