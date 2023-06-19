@@ -42,6 +42,8 @@ gem "image_processing", "~> 1.12"
 # Security update
 gem "nokogiri", ">= 1.12.5"
 
+gem 'newrelic_rpm'
+
 group :development, :test do
   # Optional debugging tools
   # gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
