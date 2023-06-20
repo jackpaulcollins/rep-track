@@ -25,7 +25,7 @@
         <%= render partial: "challenge_units_table", locals: { challenge_units: challenge.challenge_units } %>
         <turbo-frame id="<%= "#{challenge.id}_add_unit" %>">
           <%= link_to new_unit_form_challenge_path(challenge), method: :post do %>
-            <i class="fa-solid fa-plus"></i>
+            <i class="fa-solid fa-plus text-indigo-600 hover:text-indigo-900"></i>
           <% end %>
         </turbo-frame>
       </div>
