@@ -1,6 +1,6 @@
 class ChallengesController < ApplicationController
   include Challenges::ChallengeConcern
-  before_action :set_challenge, only: [:show, :edit, :update, :destroy, :add_units]
+  before_action :set_challenge, only: [:show, :edit, :update, :destroy, :add_units, :new_unit_form]
   before_action :authenticate_user!
 
   def current_user_challenges
@@ -42,6 +42,18 @@ class ChallengesController < ApplicationController
 
   # GET /challenges/1/edit
   def edit
+  end
+
+  def new_unit_form
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(
+          "#{@challenge.id}_add_unit",
+          partial: "new_challenge_unit_form",
+          locals: {challenge: @challenge}
+        )
+      end
+    end
   end
 
   def add_units

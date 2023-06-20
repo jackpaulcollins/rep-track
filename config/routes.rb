@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     member do
       post :add_units
       get :leaderboard, to: "challenges#challenge_leaderboard"
+      post :new_unit_form
     end
     collection do
       get :my_challenges, to: "challenges#current_user_challenges"

@@ -42,8 +42,8 @@ gem "image_processing", "~> 1.12"
 # Security update
 gem "nokogiri", ">= 1.12.5"
 
-gem 'newrelic_rpm'
-gem 'postmark-rails'
+gem "newrelic_rpm"
+gem "postmark-rails"
 
 group :development, :test do
   # Optional debugging tools

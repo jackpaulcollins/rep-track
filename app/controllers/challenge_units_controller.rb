@@ -1,4 +1,5 @@
 class ChallengeUnitsController < ApplicationController
+  include ActionView::RecordIdentifier
   before_action :set_challenge_unit, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
@@ -29,6 +30,8 @@ class ChallengeUnitsController < ApplicationController
 
   # GET /challenge_units/1/edit
   def edit
+    @cu = ChallengeUnit.find(params[:id])
+    render turbo_stream: turbo_stream.replace(dom_id(@cu), partial: "challenges/challenge_unit_edit_form")
   end
 
   # POST /challenge_units or /challenge_units.json
@@ -53,7 +56,7 @@ class ChallengeUnitsController < ApplicationController
   def update
     respond_to do |format|
       if @challenge_unit.update(challenge_unit_params)
-        format.html { redirect_to @challenge_unit, notice: "Challenge unit was successfully updated." }
+        format.html { redirect_to @challenge_unit.challenge, notice: "Challenge rep was successfully updated." }
         format.json { render :show, status: :ok, location: @challenge_unit }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -66,7 +69,7 @@ class ChallengeUnitsController < ApplicationController
   def destroy
     @challenge_unit.destroy
     respond_to do |format|
-      format.html { redirect_to challenge_units_url, status: :see_other, notice: "Challenge unit was successfully destroyed." }
+      format.html { redirect_to @challenge_unit.challenge, status: :see_other, notice: "Challenge rep was successfully destroyed." }
       format.json { head :no_content }
     end
   end
