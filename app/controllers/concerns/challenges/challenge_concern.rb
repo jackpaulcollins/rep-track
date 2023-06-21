@@ -3,7 +3,7 @@ module Challenges::ChallengeConcern
 
   def handle_public_challenge
     ActsAsTenant.with_tenant(current_user.personal_account) do
-      @challenge.account_id = current_user.personal_account.id
+      @challenge.account_id = Account.default_account
       respond_to do |format|
         if @challenge.save
           format.turbo_stream do

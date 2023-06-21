@@ -86,6 +86,8 @@ class User < ApplicationRecord
   validates :avatar, resizable_image: true
   before_validation :set_default_timezone
 
+  after_create :add_to_default_account!
+
   # When ActionText rendering mentions in plain text
   def attachable_plain_text_representation(caption = nil)
     caption || name
