@@ -2,15 +2,15 @@
 #
 # Table name: challenges
 #
-#  id                 :bigint           not null, primary key
-#  end_date           :date
-#  name               :string           not null
-#  public             :boolean          not null
-#  start_date         :date             not null
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  account_id         :bigint
-#  challenge_owner_id :bigint           not null
+#  id                  :bigint           not null, primary key
+#  end_date            :date
+#  is_public_challenge :boolean          not null
+#  name                :string           not null
+#  start_date          :date             not null
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  account_id          :bigint
+#  challenge_owner_id  :bigint           not null
 #
 # Indexes
 #
@@ -25,7 +25,7 @@
 class Challenge < ApplicationRecord
   belongs_to :account
   belongs_to :challenge_owner, class_name: "User"
-  acts_as_tenant :account
+  
   has_many :challenge_units, dependent: :destroy
   has_many :challenge_enrollments, dependent: :destroy
   has_many :users, through: :challenge_enrollments
@@ -33,6 +33,10 @@ class Challenge < ApplicationRecord
 
   validates :start_date, presence: true
   validates :name, presence: true
+
+  default_scope { merge(public_or_belongs_to_account) }
+  acts_as_tenant :account
+  scope :public_or_belongs_to_account, -> { where(is_public_challenge: true).or(where(account: ActsAsTenant.current_tenant)) }
 
   scope :current_user_enrolled_challenges, ->(user) {
     joins(:challenge_enrollments).where(challenge_enrollments: {user_id: user.id})
@@ -43,12 +47,15 @@ class Challenge < ApplicationRecord
       .where(challenge_enrollments: {id: nil})
   }
 
+  scope :public_challenges, -> { where(is_public_challenge: true) }
+
   after_create_commit -> { broadcast_prepend_later_to :challenges, partial: "challenges/index", locals: {challenge: self} }
   after_update_commit -> { broadcast_replace_later_to self }
   after_destroy_commit -> { broadcast_remove_to :challenges, target: dom_id(self, :index) }
 
+
   def public_data_display
-    public? ? "Yes" : "No"
+    is_public_challenge ? "Yes" : "No"
   end
 
   def end_date_display
