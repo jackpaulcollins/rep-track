@@ -7,20 +7,6 @@ class ChallengesController < ApplicationController
     @pagy, @challenges = pagy(Challenge.current_user_enrolled_challenges(current_user).sort_by_params(params[:sort], sort_direction))
   end
 
-  def challenge_leaderboard
-    challenge = Challenge.includes(:reports, :challenge_units, :users).find(147)
-
-    reports_by_user = challenge.reports.group_by { |report| [report.user.first_name, report.user.last_name] }
-
-    # returns a hash of users/sum of points in DESC order
-    # { <#User>: points, <#User>: points }
-    @leader_board = reports_by_user.each_with_object({}) do |(k, v), hash|
-      hash[k] = v.map(&:point_value).sum
-    end.sort_by { |_key, value| value }.reverse.to_h
-
-    render "challenge_leaderboard"
-  end
-
   def index
     @pagy, @challenges = pagy(Challenge.current_user_not_enrolled_challenges(current_user).sort_by_params(params[:sort], sort_direction))
 
