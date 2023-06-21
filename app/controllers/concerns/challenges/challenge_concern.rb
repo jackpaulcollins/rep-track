@@ -2,7 +2,7 @@ module Challenges::ChallengeConcern
   extend ActiveSupport::Concern
 
   def handle_public_challenge
-    ActsAsTenant.with_tenant(current_user.personal_account) do
+    ActsAsTenant.with_tenant(Account.default_account) do
       @challenge.account_id = Account.default_account
       respond_to do |format|
         if @challenge.save

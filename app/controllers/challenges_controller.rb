@@ -7,6 +7,10 @@ class ChallengesController < ApplicationController
     @pagy, @challenges = pagy(Challenge.current_user_enrolled_challenges(current_user).sort_by_params(params[:sort], sort_direction))
   end
 
+  def public_challenges
+    @pagy, @public_challenges = pagy(Challenge.public_challenges.sort_by_params(params[:sort], sort_direction))
+  end
+
   def index
     @pagy, @challenges = pagy(Challenge.current_user_not_enrolled_challenges(current_user).sort_by_params(params[:sort], sort_direction))
 
@@ -61,7 +65,7 @@ class ChallengesController < ApplicationController
     @challenge.challenge_owner = current_user
 
     # ensures the account id is the user's personal account
-    return handle_public_challenge if @challenge.public?
+    return handle_public_challenge if @challenge.is_public_challenge?
 
     respond_to do |format|
       if @challenge.save
@@ -114,6 +118,6 @@ class ChallengesController < ApplicationController
   end
 
   def challenge_params
-    params.require(:challenge).permit(:name, :start_date, :end_date, :public, :account_id)
+    params.require(:challenge).permit(:name, :start_date, :end_date, :is_public_challenge, :account_id)
   end
 end
