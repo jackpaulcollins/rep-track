@@ -1,9 +1,9 @@
-class ChallengesController < ApplicationController
+class PublicChallengesController < ApplicationController
   before_action :set_challenge, only: [:show, :edit, :update, :destroy, :add_units, :new_unit_form]
   before_action :authenticate_user!
 
   def public_challenges
-    @pagy, @public_challenges = pagy(Challenge.all.sort_by_params(params[:sort], sort_direction))
+    @pagy, @public_challenges = pagy(Challenge.unscoped.public_challenges.sort_by_params(params[:sort], sort_direction))
   end
 
   def challenge_leaderboard
