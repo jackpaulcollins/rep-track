@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     end
     collection do
       get :my_challenges, to: "challenges#current_user_challenges"
-      get :public_challenges, to: "public_challenges#public_challenges"
+      get :public_challenges, to: "challenges#public_challenges"
     end
   end
   resources :reports

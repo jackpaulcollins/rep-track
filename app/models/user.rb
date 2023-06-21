@@ -94,4 +94,8 @@ class User < ApplicationRecord
   def set_default_timezone
     self.time_zone ||= "Pacific Time (US & Canada)" if time_zone.nil?
   end
+
+  def add_to_default_account!
+    Account.default_account.account_users.create!(user: self, roles: {"admin"=>false, "member"=>true})
+  end
 end

@@ -5,6 +5,8 @@ class Api::V1::UsersController < Api::BaseController
   def create
     user = User.new(devise_parameter_sanitizer.sanitize(:sign_up))
 
+    user.add_to_default_account!
+
     # If registering with an account, add the AccountUser with admin role
     if Jumpstart.config.register_with_account?
       account = user.owned_accounts.first_or_initialize

@@ -12,3 +12,8 @@
 #   terms_of_service: true
 # )
 # Jumpstart.grant_system_admin!(user)
+
+Account.create!(
+  name: "RepTrack",
+  owner: User.find_by_email("jack@reptrack.xyz")
+)

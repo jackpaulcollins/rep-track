@@ -48,11 +48,15 @@ class Account < ApplicationRecord
   pay_customer stripe_attributes: :stripe_attributes
 
   validates :avatar, resizable_image: true
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
 
   # To require a domain or subdomain, add the presence validation
   validates :domain, exclusion: {in: RESERVED_DOMAINS, message: :reserved}, uniqueness: {allow_blank: true}
   validates :subdomain, exclusion: {in: RESERVED_SUBDOMAINS, message: :reserved}, format: {with: /\A[a-zA-Z0-9]+[a-zA-Z0-9\-_]*[a-zA-Z0-9]+\Z/, message: :format, allow_blank: true}, uniqueness: {allow_blank: true}
+
+  def self.default_account
+    Account.find_by_name("RepTrack")
+  end
 
   def find_or_build_billing_address
     billing_address || build_billing_address
