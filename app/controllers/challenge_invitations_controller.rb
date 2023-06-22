@@ -1,6 +1,6 @@
 class ChallengeInvitationsController < ApplicationController
   before_action :set_challenge, only: [:create, :show]
-  before_action :set_challenge_invitation, only: [:show, :edit, :update, :destroy, :resend]
+  before_action :set_challenge_invitation, only: [:show, :edit, :update, :destroy, :resend, :accept]
 
   def create
     @challenge_invitation = ChallengeInvitation.for_challenge(@challenge)
@@ -10,6 +10,10 @@ class ChallengeInvitationsController < ApplicationController
     else
       redirect_to @challenge, status: :unprocessable_entity
     end
+  end
+
+  def accept
+    puts "*" * 500
   end
 
   def edit

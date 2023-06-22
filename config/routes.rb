@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resources :challenge_invitations, except: [:index] do
       member do
         post :resend
+        post :accept
       end
     end
   end
