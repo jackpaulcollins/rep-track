@@ -1,0 +1,2 @@
+module ChallengeInvitationsHelper
+end

@@ -49,11 +49,6 @@ class Challenge < ApplicationRecord
 
   scope :public_challenges, -> { where(is_public_challenge: true) }
 
-  after_create_commit -> { broadcast_prepend_later_to :challenges, partial: "challenges/index", locals: {challenge: self} }
-  after_update_commit -> { broadcast_replace_later_to self }
-  after_destroy_commit -> { broadcast_remove_to :challenges, target: dom_id(self, :index) }
-
-
   def public_data_display
     is_public_challenge ? "Yes" : "No"
   end

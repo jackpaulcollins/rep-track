@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_20_224804) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_21_044409) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,7 +23,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_20_224804) do
     t.jsonb "roles", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "challenge_id"
     t.index ["account_id"], name: "index_account_invitations_on_account_id"
+    t.index ["challenge_id"], name: "index_account_invitations_on_challenge_id"
     t.index ["invited_by_id"], name: "index_account_invitations_on_invited_by_id"
     t.index ["token"], name: "index_account_invitations_on_token", unique: true
   end
@@ -144,6 +146,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_20_224804) do
     t.index ["challenge_id"], name: "index_challenge_enrollments_on_challenge_id"
     t.index ["user_id", "challenge_id"], name: "index_challenge_enrollments_on_user_id_and_challenge_id", unique: true
     t.index ["user_id"], name: "index_challenge_enrollments_on_user_id"
+  end
+
+  create_table "challenge_invitations", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.bigint "challenge_id", null: false
+    t.bigint "invited_by_id"
+    t.string "email"
+    t.string "name"
+    t.string "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_challenge_invitations_on_account_id"
+    t.index ["challenge_id"], name: "index_challenge_invitations_on_challenge_id"
+    t.index ["invited_by_id"], name: "index_challenge_invitations_on_invited_by_id"
   end
 
   create_table "challenge_units", force: :cascade do |t|
@@ -371,6 +387,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_20_224804) do
   end
 
   add_foreign_key "account_invitations", "accounts"
+  add_foreign_key "account_invitations", "challenges"
   add_foreign_key "account_invitations", "users", column: "invited_by_id"
   add_foreign_key "account_users", "accounts"
   add_foreign_key "account_users", "users"
@@ -380,6 +397,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_20_224804) do
   add_foreign_key "challenge_enrollments", "accounts"
   add_foreign_key "challenge_enrollments", "challenges"
   add_foreign_key "challenge_enrollments", "users"
+  add_foreign_key "challenge_invitations", "accounts"
+  add_foreign_key "challenge_invitations", "challenges"
+  add_foreign_key "challenge_invitations", "users", column: "invited_by_id"
   add_foreign_key "challenge_units", "challenges"
   add_foreign_key "challenges", "accounts"
   add_foreign_key "challenges", "users", column: "challenge_owner_id"

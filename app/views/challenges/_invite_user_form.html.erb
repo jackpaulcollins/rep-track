@@ -1,0 +1,17 @@
+<div>
+  <%= form_with model: ChallengeInvitation.for_challenge(challenge), url: challenge_challenge_invitations_path(challenge), method: :post do |form| %>
+    <div>
+      <%= form.label :email, "Name", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.text_field :name, class: "form-control" %>
+    </div>
+    <div>
+      <%= form.label :email, "Email", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.text_field :email, class: "form-control" %>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-end mt-8">
+      <%= form.button button_text("Submit"), class: "btn btn-primary" %>
+      <button class="ml-2 btn btn-primary" data-action="click->modal#close">Cancel</button>
+    </div>
+  <% end %>
+</div>

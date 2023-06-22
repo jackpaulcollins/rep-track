@@ -11,6 +11,11 @@ Rails.application.routes.draw do
       get :my_challenges, to: "challenges#current_user_challenges"
       get :public_challenges, to: "challenges#public_challenges"
     end
+    resources :challenge_invitations do
+      member do
+        post :resend
+      end
+    end
   end
   resources :reports
   post "challenge_enrollments/:challenge_id/enroll", to: "challenge_enrollments#enroll", as: "enroll_challenge_enrollment"

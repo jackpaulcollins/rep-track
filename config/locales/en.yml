@@ -51,6 +51,14 @@ en:
       description_html: "You can %{link} this invitation."
       accept_or_decline: "accept or decline"
       view_invitation: "View invitation"
+  
+  challenge_invitations_mailer:
+    invite:
+      subject: "%{inviter} invited you to %{challenge_name}"
+      header_html: "%{inviter} has invited you to participate in the <strong>%{challenge_name}</strong> challenge"
+      description_html: "You can %{link} this invitation."
+      accept_or_decline: "accept or decline"
+      view_invitation: "Accept Challenge!"
 
   account_invitations:
     invite_user: "Invite User"

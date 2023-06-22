@@ -3,6 +3,21 @@
 
 <div class="container px-4 mx-auto my-8">
   <div class="flex justify-end mb-4">
+    <% if @challenge.is_challenge_owner?(current_user) %>
+      <div data-controller="modal" class="mr-2">
+        <button class="btn btn-primary" data-action="click->modal#open">Invite Someone!</button>
+
+        <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard" class="fixed inset-0 flex items-center justify-center hidden overflow-y-auto animated fadeIn" style="z-index: 9999;">
+          <div class="relative w-full max-w-lg max-h-screen">
+            <div class="m-1 bg-white rounded shadow">
+              <div class="p-8">
+                <%= render partial: "invite_user_form", locals: { challenge: @challenge } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
     <% if @challenge.user_can_enroll?(current_user) %>
       <%= button_to "Enroll", enroll_challenge_enrollment_path(@challenge), method: :post, class: "btn btn-primary mr-2" %>
     <% end %>
@@ -21,7 +36,7 @@
           </div>
         </div>
       </div>
-    <%= button_to "Unenroll", unenroll_challenge_enrollment_path(@challenge, user_id: current_user.id), method: :post, class: "btn btn-danger mr-2", data: { turbo_confirm: "Unenrolling will erase your points." } %>
+      <%= button_to "Unenroll", unenroll_challenge_enrollment_path(@challenge, user_id: current_user.id), method: :post, class: "btn btn-danger mr-2", data: { turbo_confirm: "Unenrolling will erase your points." } %>
     <% end %>
     <%= link_to t("edit"), edit_challenge_path(@challenge), class: "btn btn-white" %>
   </div>

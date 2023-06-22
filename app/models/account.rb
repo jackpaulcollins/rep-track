@@ -28,6 +28,7 @@ class Account < ApplicationRecord
   RESERVED_SUBDOMAINS = %w[app help support]
 
   belongs_to :owner, class_name: "User"
+  has_many :challenge_invitations, dependent: :destroy
   has_many :account_invitations, dependent: :destroy
   has_many :account_users, dependent: :destroy
   has_many :notifications, dependent: :destroy
