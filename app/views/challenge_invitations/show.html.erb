@@ -1,3 +1,6 @@
 <h1>Challenge Invitation Details</h1>
 <p>Invitation for: <%= @challenge_invitation.email %></p>
 <p>Challenge: <%= @challenge_invitation.challenge.name %></p>
+<p>Starts On <%= @challenge.start_date %></p>
+<%= render partial: "challenges/challenge_units_table", locals: { challenge_units: @challenge.challenge_units } %>
+<%= render partial: "challenges/challenge_participants_table", locals: { participants: @challenge.challenge_enrollments } %>

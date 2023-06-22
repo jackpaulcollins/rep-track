@@ -1,5 +1,5 @@
 class ChallengeInvitationsController < ApplicationController
-  before_action :set_challenge, only: [:create]
+  before_action :set_challenge, only: [:create, :show]
   before_action :set_challenge_invitation, only: [:show, :edit, :update, :destroy, :resend]
 
   def create
