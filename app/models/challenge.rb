@@ -35,9 +35,8 @@ class Challenge < ApplicationRecord
   validates :start_date, presence: true
   validates :name, presence: true
 
-  default_scope { merge(public_or_belongs_to_account) }
   acts_as_tenant :account
-  scope :public_or_belongs_to_account, -> { where(is_public_challenge: true).or(where(account: ActsAsTenant.current_tenant)) }
+  scope :public_challenges, -> { where(is_public_challenge: true) }
 
   scope :current_user_enrolled_challenges, ->(user) {
     joins(:challenge_enrollments).where(challenge_enrollments: {user_id: user.id})
@@ -47,8 +46,6 @@ class Challenge < ApplicationRecord
     joins("LEFT JOIN challenge_enrollments ON challenges.id = challenge_enrollments.challenge_id AND challenge_enrollments.user_id = #{user.id}")
       .where(challenge_enrollments: {id: nil})
   }
-
-  scope :public_challenges, -> { where(is_public_challenge: true) }
 
   def public_data_display
     is_public_challenge ? "Yes" : "No"

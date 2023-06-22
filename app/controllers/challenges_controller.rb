@@ -9,7 +9,7 @@ class ChallengesController < ApplicationController
   end
 
   def public_challenges
-    @pagy, @public_challenges = pagy(Challenge.public_challenges.sort_by_params(params[:sort], sort_direction))
+    @pagy, @public_challenges = pagy(Challenge.unscoped.public_challenges.sort_by_params(params[:sort], sort_direction))
 
     render :public_challenges
   end
@@ -113,6 +113,7 @@ class ChallengesController < ApplicationController
   def set_to_default_account
     ensure_current_user_in_default_account
     Current.account = Account.default_account
+    session[:account_id] = Account.default_account.id
   end
 
   def ensure_current_user_in_default_account
