@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_21_044409) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_22_031529) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,9 +23,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_21_044409) do
     t.jsonb "roles", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "challenge_id"
     t.index ["account_id"], name: "index_account_invitations_on_account_id"
-    t.index ["challenge_id"], name: "index_account_invitations_on_challenge_id"
     t.index ["invited_by_id"], name: "index_account_invitations_on_invited_by_id"
     t.index ["token"], name: "index_account_invitations_on_token", unique: true
   end
@@ -387,7 +385,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_21_044409) do
   end
 
   add_foreign_key "account_invitations", "accounts"
-  add_foreign_key "account_invitations", "challenges"
   add_foreign_key "account_invitations", "users", column: "invited_by_id"
   add_foreign_key "account_users", "accounts"
   add_foreign_key "account_users", "users"
