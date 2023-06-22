@@ -37,10 +37,16 @@ class ChallengeInvitationsController < ApplicationController
 
   def set_challenge_invitation
     @challenge_invitation = ChallengeInvitation.find_by!(token: params[:id])
+
+  rescue ActiveRecord::RecordNotFound
+    redirect_to challenges_path, alert: "Invite not found! Please contact the challenge owner"
   end
 
   def set_challenge
-    @challenge = Challenge.find(params[:challenge_id])
+    @challenge = Challenge.unscoped.find(params[:challenge_id])
+
+  rescue ActiveRecord::RecordNotFound
+    redirect_to challenges_path, alert: "Invite not found! Please contact the challenge owner"
   end
 
   def invitation_params
