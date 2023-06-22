@@ -2,10 +2,6 @@ class ChallengeInvitationsController < ApplicationController
   before_action :set_challenge, only: [:create]
   before_action :set_challenge_invitation, only: [:show, :edit, :update, :destroy, :resend]
 
-  def index
-    redirect_to root_path
-  end
-
   def create
     @challenge_invitation = ChallengeInvitation.for_challenge(@challenge)
     @challenge_invitation.assign_attributes(invitation_params)
