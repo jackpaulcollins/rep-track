@@ -2,6 +2,7 @@ class ChallengesController < ApplicationController
   include Challenges::ChallengeConcern
   before_action :set_challenge, only: [:show, :edit, :update, :destroy, :add_units, :new_unit_form]
   before_action :authenticate_user!
+  before_action :set_to_default_account, only: [:public_challenges]
 
   def current_user_challenges
     @pagy, @challenges = pagy(Challenge.current_user_enrolled_challenges(current_user).sort_by_params(params[:sort], sort_direction))
@@ -9,6 +10,8 @@ class ChallengesController < ApplicationController
 
   def public_challenges
     @pagy, @public_challenges = pagy(Challenge.public_challenges.sort_by_params(params[:sort], sort_direction))
+
+    render :public_challenges
   end
 
   def index
@@ -106,6 +109,10 @@ class ChallengesController < ApplicationController
   end
 
   private
+
+  def set_to_default_account
+    Current.account = Account.default_account
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_challenge
