@@ -4,16 +4,17 @@
 # Examples:
 #
 # Uncomment the following to create an Admin user for Production in Jumpstart Pro
-# user = User.create(
-#   name: "Admin User",
-#   email: "email@example.org",
-#   password: "password",
-#   password_confirmation: "password",
-#   terms_of_service: true
-# )
-# Jumpstart.grant_system_admin!(user)
+user = User.create!(
+  name: "Admin User",
+  email: "jack@reptrack.xyz",
+  password: "password",
+  password_confirmation: "password",
+  terms_of_service: true,
+  skip_add_to_default_account: true
+)
+Jumpstart.grant_system_admin!(user)
 
 Account.create!(
   name: "RepTrack",
-  owner: User.find_by_email("jack@reptrack.xyz")
+  owner: user
 )

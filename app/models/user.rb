@@ -86,7 +86,8 @@ class User < ApplicationRecord
   validates :avatar, resizable_image: true
   before_validation :set_default_timezone
 
-  after_create :add_to_default_account!
+  attr_accessor :skip_add_to_default_account
+  after_create :add_to_default_account!, unless: :skip_add_to_default_account?
 
   # When ActionText rendering mentions in plain text
   def attachable_plain_text_representation(caption = nil)
@@ -98,6 +99,11 @@ class User < ApplicationRecord
   end
 
   def add_to_default_account!
+    return if self.account_users.map(&:account_id).include?(Account.default_account.id)
     Account.default_account.account_users.create!(user: self, roles: {"admin"=>false, "member"=>true})
+  end
+
+  def skip_add_to_default_account?
+    skip_add_to_default_account
   end
 end

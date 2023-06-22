@@ -111,7 +111,14 @@ class ChallengesController < ApplicationController
   private
 
   def set_to_default_account
+    ensure_current_user_in_default_account
     Current.account = Account.default_account
+  end
+
+  def ensure_current_user_in_default_account
+    return if current_user.account_users.map(&:account_id).include?(Account.default_account.id)
+
+    current_user.add_to_default_account!
   end
 
   # Use callbacks to share common setup or constraints between actions.
