@@ -99,8 +99,8 @@ class User < ApplicationRecord
   end
 
   def add_to_default_account!
-    return if self.account_users.map(&:account_id).include?(Account.default_account.id)
-    Account.default_account.account_users.create!(user: self, roles: {"admin"=>false, "member"=>true})
+    return if account_users.map(&:account_id).include?(Account.default_account.id)
+    Account.default_account.account_users.create!(user: self, roles: {"admin" => false, "member" => true})
   end
 
   def skip_add_to_default_account?

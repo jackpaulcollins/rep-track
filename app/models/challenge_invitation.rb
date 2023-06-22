@@ -29,7 +29,7 @@ class ChallengeInvitation < ApplicationRecord
 
   belongs_to :account
   belongs_to :challenge
-  belongs_to :invited_by, class_name: 'User', optional: true
+  belongs_to :invited_by, class_name: "User", optional: true
 
   validates :name, :email, presence: true
   validates :email, uniqueness: {scope: :account_id, message: :invited}
