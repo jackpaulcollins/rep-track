@@ -59,6 +59,10 @@ class Challenge < ApplicationRecord
     challenge_enrollments.build(user: user, account: account).save!
   end
 
+  def enroll_from_invite!(user, acccount)
+    challenge_enrollments.build(user: user, account: account).save!(validate: false)
+  end
+
   def unenroll!(user_id)
     challenge_enrollments.where(user_id: user_id).destroy_all
   end

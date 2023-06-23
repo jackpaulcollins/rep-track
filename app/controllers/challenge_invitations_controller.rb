@@ -1,4 +1,5 @@
 class ChallengeInvitationsController < ApplicationController
+  include ChallengeInvitations::ChallengeInvitationsConcern
   before_action :set_challenge, only: [:create, :show]
   before_action :set_challenge_invitation, only: [:show, :edit, :update, :destroy, :resend, :accept]
 
@@ -13,7 +14,15 @@ class ChallengeInvitationsController < ApplicationController
   end
 
   def accept
-    puts "*" * 500
+    user = user_if_present
+    challenge = Challenge.unscoped.find(@challenge_invitation.challenge_id)
+    if user
+      user.add_to_account_from_challenge!(challenge)
+      challenge.enroll_from_invite!(user, challenge.account)
+    else
+      store_location_for(:user, request.referer)
+      redirect_to new_user_registration_path, alert: "Please sign up to enroll in this challenge"
+    end
   end
 
   def edit
