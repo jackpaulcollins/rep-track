@@ -24,7 +24,10 @@
 
     <% if @challenge.user_enrolled_in_challenge?(current_user) %>
       <div data-controller="modal" class="mr-2">
-        <button class="btn btn-primary" data-action="click->modal#open">Create Report!</button>
+        
+        <div data-controller="<%= 'tooltip' unless @challenge.active_for_user?(current_user) %>" data-tippy-content="<%= 'Challenge is not yet active!' unless @challenge.active_for_user?(current_user) %>">
+          <button class="btn btn-primary" data-action="click->modal#open" <%= 'disabled' unless @challenge.active_for_user?(current_user) %> title="Challenge is currently disabled">Create Report!</button>
+        </div>
 
         <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard" class="fixed inset-0 flex items-center justify-center hidden overflow-y-auto animated fadeIn" style="z-index: 9999;">
           <div class="relative w-full max-w-lg max-h-screen">
