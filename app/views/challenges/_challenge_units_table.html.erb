@@ -1,21 +1,15 @@
-<div class="flex flex-col w-2/3">
+<div class="flex flex-col w-full">
   <div class="mb-4">
     <h1 class="text-base font-semibold leading-6 text-gray-900">Rep Types</h1>
     <p class="mt-2 text-sm text-gray-700">Rep types and corresponding points for this challenge</p>
   </div>
   <% challenge_units.each do |cu| %>
     <%= turbo_frame_tag cu do %>
-      <div class="flex flex-row justify-between items-center w-full">
-        <div class="flex-1 min-w-0 px-4 md:grid md:grid-cols-2 md:gap-4">
-        <div class="min-w-1/2">
-          <span class="font-semibold">Rep:</span>
-          <%= content_tag :span, cu.rep_name, class: "ml-2" %>
+      <div class="mb-2 flex flex-row items-center justify-between rounded-lg border border-gray-300 bg-white px-2 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
+        <div class="inline-flex">
+          <%= content_tag :span, cu.rep_name, class: "text-sm font-medium text-gray-900" %>
+          <%= content_tag :span, "#{cu.points} points", class: "text-sm font-bold text-gray-500 ml-2" %>
         </div>
-        <div class="flex flex-row justify-start min-w-1/2">
-          <span class="font-semibold">Points: </span>
-          <%= content_tag :span, cu.points, class: "ml-2" %>
-        </div>
-       </div>
         <% if cu.challenge.user_can_edit_challenge?(current_user, current_account) %>
           <div class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
             <%= link_to 'Edit', edit_challenge_unit_path(cu), class: 'text-indigo-600 hover:text-indigo-900 ml-4', data: { turbo_frame: dom_id(cu, 'edit-form') } %>
@@ -23,5 +17,5 @@
         <% end %>
       </div>
     <% end %>
-  <% end %>
+  <% end%>
 </div>
