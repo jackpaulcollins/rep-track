@@ -7,7 +7,7 @@
     <%= turbo_frame_tag cu do %>
       <div class="mb-2 flex flex-row items-center justify-between rounded-lg border border-gray-300 bg-white px-2 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
         <div class="inline-flex">
-          <%= content_tag :span, cu.rep_name, class: "text-sm font-medium text-gray-900" %>
+          <%= content_tag :span, cu.rep_name, class: "text-l font-bold text-gray-900 mr-2" %>
           <%= content_tag :span, "#{cu.points} points", class: "text-sm font-bold text-gray-500 ml-2" %>
         </div>
         <% if cu.challenge.user_can_edit_challenge?(current_user, current_account) %>
