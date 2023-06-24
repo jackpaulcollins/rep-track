@@ -34,6 +34,11 @@ class ChallengeInvitation < ApplicationRecord
   validates :name, :email, presence: true
   validates :email, uniqueness: {scope: :account_id, message: :invited}
 
+  def accept!(user, challenge)
+    user.add_to_account_from_challenge!(challenge)
+    challenge.enroll_from_invite!(user, challenge.account)
+    destroy!
+  end
   def self.for_challenge(challenge)
     new(challenge: challenge, account: challenge.account)
   end

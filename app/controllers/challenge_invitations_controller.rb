@@ -17,8 +17,8 @@ class ChallengeInvitationsController < ApplicationController
     user = user_if_present
     challenge = Challenge.unscoped.find(@challenge_invitation.challenge_id)
     if user
-      user.add_to_account_from_challenge!(challenge)
-      challenge.enroll_from_invite!(user, challenge.account)
+      @challenge_invitation.accept!(user, challenge)
+      redirect_to challenge, notice: "You've successfully enrolled in #{challenge.name}!"
     else
       store_location_for(:user, request.referer)
       redirect_to new_user_registration_path, alert: "Please sign up to enroll in this challenge"
