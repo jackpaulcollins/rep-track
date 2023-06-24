@@ -67,7 +67,7 @@ class ChallengesController < ApplicationController
     @challenge = Challenge.new(challenge_params)
     @challenge.challenge_owner = current_user
 
-    # ensures the account id is the user's personal account
+    # ensures the account id is the default account
     return handle_public_challenge if @challenge.is_public_challenge?
 
     respond_to do |format|
