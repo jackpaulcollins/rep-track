@@ -1,5 +1,5 @@
 <div class="flex flex-col" id="<%= dom_id challenge %>">
- <div class="flex flex-row w-full justify-evenly mb-12">
+  <div class="flex flex-row w-full justify-evenly mb-12">
     <div class="flex flex-col items-center">
       <p class="text-lg font-medium text-gray-500">Name</p>
       <%= challenge.name %>
@@ -17,21 +17,18 @@
       <%= challenge.public_data_display %>
     </div>
   </div>
-
   <div class="flex flex-row w-full">
     <div class="w-1/2">
       <div class="mb-12">
-
         <%= render partial: "challenge_units_table", locals: { challenge_units: challenge.challenge_units } %>
         <% if challenge.user_can_edit_challenge?(current_user, current_account) %>
           <turbo-frame id="<%= "#{challenge.id}_add_unit" %>">
             <%= link_to new_unit_form_challenge_path(challenge), method: :post do %>
-              <i class="fa-solid fa-plus text-indigo-600 hover:text-indigo-900"></i>
+              <i class="fa-solid fa-plus fa-lg text-indigo-600 hover:text-indigo-900"></i>
             <% end %>
           </turbo-frame>
         <% end %>
       </div>
-
       <div class="mt-12">
         <%= render partial: "challenge_participants_table", locals: { participants: challenge.challenge_enrollments } %>
       </div>
