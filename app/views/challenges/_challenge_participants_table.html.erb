@@ -25,7 +25,7 @@
             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= user.email %></td>
             <% if ce.challenge.is_challenge_owner?(current_user) %>
               <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                <%= button_to "Unenroll", unenroll_challenge_enrollment_path(ce.challenge, user_id: ce.user_id), method: :post, class: "text-indigo-600 hover:text-indigo-900", data: { turbo_confirm: "Unenrolling will erase the users points." } %>
+                <%= button_to "Unenroll", unenroll_challenge_enrollment_path(ce.challenge, user_id: ce.user_id), method: :post, class: "font-bold text-indigo-600 hover:text-indigo-900", data: { turbo_confirm: "Unenrolling will erase the users points." } %>
               </td>
             <% end %>
           </tr>
