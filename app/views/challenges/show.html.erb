@@ -41,7 +41,9 @@
       </div>
       <%= button_to "Unenroll", unenroll_challenge_enrollment_path(@challenge, user_id: current_user.id), method: :post, class: "btn btn-danger mr-2", data: { turbo_confirm: "Unenrolling will erase your points." } %>
     <% end %>
-    <%= link_to t("edit"), edit_challenge_path(@challenge), class: "btn btn-white" %>
+    <% if @challenge.is_challenge_owner?(current_user)%>
+      <%= link_to t("edit"), edit_challenge_path(@challenge), class: "btn btn-white" %>
+    <% end %>
   </div>
 
   <div class="p-8 bg-white rounded shadow">
