@@ -1,14 +1,14 @@
 <%= turbo_frame_tag @cu do %>
   <%= form_with model: @cu, url: challenge_unit_path(@cu), method: :patch, local: true, data: { turbo_frame: 'edit-form' } do |form| %>
-    <div class="flex flex-row justify-between items-center w-full">
+    <div class="mb-2 flex flex-row items-center justify-between rounded-lg border border-gray-300 bg-white px-2 py-1 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
       <div class="flex-1 min-w-0 px-4 md:grid md:grid-cols-2 md:gap-4">
         <div class="inline-flex items-center min-w-1/2">
-        <%= form.label :name, class: "mr-2" %>
-        <%= form.text_field :rep_name, class: "form-control" %>
+          <%= form.label :name, class: "mr-2 font-bold" %>
+          <%= form.text_field :rep_name, class: "form-control" %>
         </div>
         <div class="inline-flex items-center min-w-1/2">
-        <%= form.label :points, class: "mr-2" %>
-        <%= form.number_field :points, class: "form-control" %>
+          <%= form.label :points, class: "mr-2 font-bold" %>
+          <%= form.number_field :points, class: "form-control" %>
         </div>
       </div>
       <%= form.submit "update", class: "mr-2 text-indigo-600 hover:text-indigo-900 font-medium text-sm ml-4", data: { turbo_confirm: "Are you sure? Editting a rep can alter users' reports point values" } %>
