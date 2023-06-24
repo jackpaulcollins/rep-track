@@ -24,15 +24,19 @@ class ReportsController < ApplicationController
   def create
     @report = Report.new(report_params)
     @report.user = current_user
-
-    respond_to do |format|
-      if @report.save
-        format.html { redirect_to @report.challenge_enrollment.challenge, notice: "💪 Report was successfully created." }
-        format.json { render :show, status: :created, location: @report.challenge }
-      else
-        format.html { redirect_to @report.challenge_enrollment.challenge, status: :unprocessable_entity, notice: "🚨 #{@report.errors.full_messages.join} 🚨" }
-        format.json { render json: @report.errors, status: :unprocessable_entity }
+  
+    if @report.challenge.active_for_user?(current_user)
+      respond_to do |format|
+        if @report.save
+          format.html { redirect_to @report.challenge_enrollment.challenge, notice: "💪 Report was successfully created." }
+          format.json { render :show, status: :created, location: @report.challenge }
+        else
+          format.html { redirect_to @report.challenge_enrollment.challenge, status: :unprocessable_entity, notice: "🚨 #{@report.errors.full_messages.join} 🚨" }
+          format.json { render json: @report.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to @report.challenge_enrollment.challenge, alert: "Challenge is not currently active."
     end
   end
 
