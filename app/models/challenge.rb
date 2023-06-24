@@ -47,6 +47,11 @@ class Challenge < ApplicationRecord
       .where(challenge_enrollments: {id: nil})
   }
 
+  def active_for_user?(user)
+    current_time = Time.current.in_time_zone(user.time_zone)
+    start_date <= current_time && (end_date.nil? || end_date >= current_time)
+  end
+
   def public_data_display
     is_public_challenge ? "Yes" : "No"
   end
