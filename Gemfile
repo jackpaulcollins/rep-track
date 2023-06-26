@@ -45,6 +45,7 @@ gem "nokogiri", ">= 1.12.5"
 gem "newrelic_rpm"
 gem "postmark-rails"
 gem "subroutine", "~> 1.0", ">= 1.0.1"
+gem 'clipboard'
 
 group :development, :test do
   # Optional debugging tools
