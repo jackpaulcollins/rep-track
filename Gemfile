@@ -45,7 +45,7 @@ gem "nokogiri", ">= 1.12.5"
 gem "newrelic_rpm"
 gem "postmark-rails"
 gem "subroutine", "~> 1.0", ">= 1.0.1"
-gem 'clipboard'
+gem "clipboard"
 
 group :development, :test do
   # Optional debugging tools
@@ -74,7 +74,7 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
-  gem 'pry-byebug'
+  gem "pry-byebug"
 end
 
 group :test do

@@ -39,6 +39,7 @@ class ChallengeInvitation < ApplicationRecord
     challenge.enroll_from_invite!(user, challenge.account)
     destroy!
   end
+
   def self.for_challenge(challenge)
     new(challenge: challenge, account: challenge.account)
   end

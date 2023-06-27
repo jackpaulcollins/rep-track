@@ -106,7 +106,7 @@ class User < ApplicationRecord
   def add_to_account_from_challenge!(c)
     return if account_users.map(&:account_id).include?(c.account.id)
     c.account.account_users.create!(user: self, roles: {"admin" => false, "member" => true})
-    self.reload
+    reload
   end
 
   def skip_add_to_default_account?

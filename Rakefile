@@ -3,6 +3,6 @@
 
 require_relative "config/application"
 
-$LOAD_PATH.unshift(File.expand_path('ops', __dir__))
+$LOAD_PATH.unshift(File.expand_path("ops", __dir__))
 
 Rails.application.load_tasks

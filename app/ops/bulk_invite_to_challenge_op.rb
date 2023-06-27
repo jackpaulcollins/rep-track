@@ -1,5 +1,4 @@
 class BulkInviteToChallengeOp < ::Subroutine::Op
-
   integer :challenge_id
   string :invites
 
@@ -13,11 +12,11 @@ class BulkInviteToChallengeOp < ::Subroutine::Op
   # ["email", "name"]
   def parse_invites(string)
     by_line = string.split("\n")
-    by_line.map { |line| line.split("\t")}
+    by_line.map { |line| line.split("\t") }
   end
 
   def create_and_send_invite!(invite)
-    challenge = challenge(self.challenge_id)
+    challenge = challenge(challenge_id)
     puts "inviting #{invite[1]} with email: #{invite[0]} to challenge: #{challenge.name}"
     invite_record = ChallengeInvitation.for_challenge(challenge)
     invite_record.email = invite[0]
