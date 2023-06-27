@@ -10,6 +10,7 @@ module SetLocale
 
   def set_locale(&action)
     @pagy_locale = I18n.locale.to_s
+    binding.pry
     I18n.with_locale(find_locale, &action)
   end
 
