@@ -24,7 +24,7 @@
 
     <% if @challenge.user_enrolled_in_challenge?(current_user) %>
       <div data-controller="modal" class="mr-2">
-        
+
         <div data-controller="<%= 'tooltip' unless @challenge.active_for_user?(current_user) %>" data-tippy-content='<%= "Challenge begins #{@challenge.start_date}!" unless @challenge.active_for_user?(current_user) %>'>
           <button class="btn btn-primary" data-action="click->modal#open" <%= 'disabled' unless @challenge.active_for_user?(current_user) %> title="Challenge is currently disabled">Create Report!</button>
         </div>
@@ -41,7 +41,7 @@
       </div>
       <%= button_to "Unenroll", unenroll_challenge_enrollment_path(@challenge, user_id: current_user.id), method: :post, class: "btn btn-danger mr-2", data: { turbo_confirm: "Unenrolling will erase your points." } %>
     <% end %>
-    <% if @challenge.is_challenge_owner?(current_user)%>
+    <% if @challenge.is_challenge_owner?(current_user) %>
       <%= link_to t("edit"), edit_challenge_path(@challenge), class: "btn btn-white" %>
     <% end %>
   </div>

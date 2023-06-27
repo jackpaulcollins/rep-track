@@ -19,15 +19,14 @@
 
   <div class="form-group">
 
-    
     <% if current_account == Account.default_account %>
       <span class="text-xs">
         Note: challenges created on the RepTrack account are public. If you'd like to create a private challenge, please login to your personal account
       <span>
     <% else %>
-    <div 
-      class="inline-flex" 
-      data-controller="tooltip" 
+    <div
+      class="inline-flex"
+      data-controller="tooltip"
       data-tippy-content="Anyone can join a public challenge, and checking public will create this challenge on the RepTrack accouint. Leave unchecked if you'd like to limit participation to invite only">
       <i class="fa-solid fa-circle-info"></i>
     </div>
