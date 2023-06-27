@@ -30,7 +30,7 @@
         <% end %>
       </div>
       <div class="mt-12">
-        <%= render partial: "challenge_participants_table", locals: { participants: challenge.challenge_enrollments } %>
+        <%= render partial: "challenge_participants_table", locals: { participants: challenge.challenge_enrollments, challenge: challenge } %>
       </div>
     </div>
     <div class="w-2/3">
