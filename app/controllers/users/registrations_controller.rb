@@ -4,7 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
 
   def after_sign_up_path_for(resource)
-    if resource.present? && resource.is_a?(User)
+    if params[:from_invite] && resource.present? && resource.is_a?(User)
       stored_location_for(resource)
     else
       super

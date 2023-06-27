@@ -6,7 +6,7 @@
       <p>The challenge will start on <strong><%= @challenge.start_date %></strong></p>
     </div>
     <div class="w-1/3 m-auto">
-      <%= button_to "Accept", accept_challenge_challenge_invitation_path(@challenge_invitation), method: :post, class: "btn btn-primary mt-5 mb-2" %>
+      <%= button_to "Accept", accept_challenge_challenge_invitation_path(@challenge_invitation), from_invite: true, method: :post, class: "btn btn-primary mt-5 mb-2" %>
     </div>
   </div>
 </div>
