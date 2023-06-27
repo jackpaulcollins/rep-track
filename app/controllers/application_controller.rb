@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   include ActiveStorage::SetCurrent
   include BundleAssets
   include SetCurrentRequestDetails
-  include SetLocale
+  # include SetLocale
   include Jumpstart::Controller
   include Accounts::SubscriptionStatus
   include Users::NavbarNotifications
