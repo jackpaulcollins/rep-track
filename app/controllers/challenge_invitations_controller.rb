@@ -20,6 +20,8 @@ class ChallengeInvitationsController < ApplicationController
       @challenge_invitation.accept!(user, challenge)
       redirect_to challenge, notice: "You've successfully enrolled in #{challenge.name}!"
     else
+      puts "*" * 500
+      puts request.referer
       store_location_for(:user, request.referer)
       redirect_to new_user_registration_path, alert: "Please sign up to enroll in this challenge"
     end
