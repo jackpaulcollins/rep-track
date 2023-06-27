@@ -3,13 +3,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
 
-  def after_sign_up_path_for(resource)
-    if params[:from_invite] && resource.present? && resource.is_a?(User)
-      stored_location_for(resource)
-    else
-      super
-    end
-  end
+  # def after_sign_up_path_for(resource)
+  #   if params[:from_invite] && resource.present? && resource.is_a?(User)
+  #     stored_location_for(resource)
+  #   else
+  #     super
+  #   end
+  # end
 
   def build_resource(hash = {})
     self.resource = resource_class.new_with_session(hash, session)
