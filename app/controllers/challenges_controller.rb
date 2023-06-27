@@ -1,6 +1,8 @@
+require_relative "../services/bulk_invite_service"
+
 class ChallengesController < ApplicationController
   include Challenges::ChallengeConcern
-  before_action :set_challenge, only: [:show, :edit, :update, :destroy, :add_units, :new_unit_form]
+  before_action :set_challenge, only: [:bulk_invite, :submit_bulk_invite, :show, :edit, :update, :destroy, :add_units, :new_unit_form]
   before_action :authenticate_user!
   before_action :set_to_default_account, only: [:public_challenges]
 
@@ -12,6 +14,15 @@ class ChallengesController < ApplicationController
     @pagy, @public_challenges = pagy(Challenge.unscoped.public_challenges.sort_by_params(params[:sort], sort_direction))
 
     render :public_challenges
+  end
+
+  def bulk_invite
+  end
+
+  def submit_bulk_invite
+    csv = params[:csv_file].tempfile
+    service = ::BulkInviteService.new(user: current_user, challenge: @challenge, csv: csv)
+    service.process_csv
   end
 
   def index

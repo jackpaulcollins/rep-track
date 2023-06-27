@@ -1,0 +1,6 @@
+<h1>Bulk Invite</h1>
+
+<%= form_with(url: submit_bulk_invite_challenge_path(@challenge), method: :post, multipart: true) do |form| %>
+  <%= form.file_field :csv_file %>
+  <%= form.submit 'Upload' %>
+<% end %>
