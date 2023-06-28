@@ -12,7 +12,7 @@ class ChallengesController < ApplicationController
 
   def public_challenges
     @pagy, @public_challenges = pagy(Challenge.unscoped.public_challenges.sort_by_params(params[:sort], sort_direction))
-
+    
     render :public_challenges
   end
 

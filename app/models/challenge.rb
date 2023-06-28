@@ -77,7 +77,7 @@ class Challenge < ApplicationRecord
   end
 
   def user_can_edit_challenge?(user, account)
-    account.account_users.admin.map(&:user_id).include?(user.id)
+    account.account_users.admin.map(&:user_id).include?(user.id) || is_challenge_owner?(user)
   end
 
   def is_challenge_owner?(user)

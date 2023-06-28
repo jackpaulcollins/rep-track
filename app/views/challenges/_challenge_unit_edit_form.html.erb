@@ -17,7 +17,7 @@
           cancel
         </span>
       <% end %>
-      <%= button_tag challenge_unit_path(@cu), method: :delete, class: "ml-2 text-black font-medium text-sm hover:text-danger-900", data: { turbo_confirm: "Are you sure? Deleting a rep can alter users' reports point values" } do %>
+      <%= link_to challenge_unit_path(@cu), method: :delete, class: "ml-2 text-black font-medium text-sm hover:text-danger-900", data: { confirm: "Are you sure? Deleting a rep can alter users' reports point values" } do %>
         <span>
           <i class="fa-solid fa-trash"></i>
         </span>
