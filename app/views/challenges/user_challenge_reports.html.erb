@@ -1,0 +1,13 @@
+<h2>Challenge: <%= @challenge.name %></h2>
+
+<h4><%= @user.first_name %></h4>
+
+<ul>
+  <% @reports.each do |report| %>
+    <li>
+      <%= report.challenge_unit.rep_name %>
+      <%= report.rep_count %>
+      <%= report.point_value %>
+    </li>
+  <% end %>
+</ul>

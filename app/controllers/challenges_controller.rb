@@ -2,9 +2,16 @@ require_relative "../services/bulk_invite_service"
 
 class ChallengesController < ApplicationController
   include Challenges::ChallengeConcern
-  before_action :set_challenge, only: [:bulk_invite, :submit_bulk_invite, :show, :edit, :update, :destroy, :add_units, :new_unit_form]
+  before_action :set_challenge, only: [:user_reports, :bulk_invite, :submit_bulk_invite, :show, :edit, :update, :destroy, :add_units, :new_unit_form]
   before_action :authenticate_user!
   before_action :set_to_default_account, only: [:public_challenges]
+
+  def user_reports
+    @user = User.find(params[:user_id])
+    @reports = @challenge.reports.joins(:challenge_unit).where(user: @user)
+
+    render :user_challenge_reports
+  end
 
   def current_user_challenges
     @pagy, @challenges = pagy(Challenge.current_user_enrolled_challenges(current_user).sort_by_params(params[:sort], sort_direction))
@@ -17,6 +24,7 @@ class ChallengesController < ApplicationController
   end
 
   def bulk_invite
+    redirect_to @challenge unless @challenge.is_challenge_owner?(current_user)
   end
 
   def submit_bulk_invite

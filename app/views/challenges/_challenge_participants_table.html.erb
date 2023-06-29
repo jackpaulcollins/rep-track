@@ -23,13 +23,14 @@
           <tr>
             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"><%= user.first_name %></td>
             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= user.email %></td>
+            <td><%= link_to "reports", user_reports_challenge_path(user_id: user.id) %></td>
             <% if ce.challenge.is_challenge_owner?(current_user) %>
               <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                 <%= button_to "Unenroll", unenroll_challenge_enrollment_path(ce.challenge, user_id: ce.user_id), method: :post, class: "font-bold text-indigo-600 hover:text-indigo-900", data: { turbo_confirm: "Unenrolling will erase the users points." } %>
               </td>
             <% end %>
           </tr>
-          <% end %>
+        <% end %>
         <% if challenge.challenge_invitations.any? %>
           <% challenge.challenge_invitations.each do |i| %>
             <tr>
