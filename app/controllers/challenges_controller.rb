@@ -11,7 +11,7 @@ class ChallengesController < ApplicationController
 
     @user_reports_by_challenge_unit = @user.reports.joins(:challenge_unit)
       .where(challenge_units: {challenge: @challenge})
-      .group_by(&:challenge_unit)
+      .group_by { |report| [report.challenge_unit, report.created_at.to_date] }
 
     render :user_challenge_reports
   end

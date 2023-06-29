@@ -93,7 +93,7 @@ class Challenge < ApplicationRecord
   end
 
   def leaderboard
-    reports_by_user = reports.group_by { |report| [report.user.first_name, report.user.last_name] }
+    reports_by_user = reports.group_by { |report| [report.user] }
 
     leaderboard = reports_by_user.each_with_object({}) do |(user, reports), hash|
       hash[user] = reports.sum(&:point_value)
