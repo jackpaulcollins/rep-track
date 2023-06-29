@@ -11,7 +11,7 @@
       <% reports.group_by { |report| report.created_at.to_date }.each do |date, reports_by_date| %>
         <div class="mb-2">
           <div class="bg-gray-100 rounded p-2">
-            <span class="font-semibold">Date: <%= date.to_s %></span>
+            <span class="font-semibold"><%= date.strftime("%B %e, %Y") %></span>
 
             <ul class="mt-2">
               <% reports_by_date.each do |report| %>
