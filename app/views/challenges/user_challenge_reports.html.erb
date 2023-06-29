@@ -1,13 +1,19 @@
-<h2>Challenge: <%= @challenge.name %></h2>
+<div class="bg-white rounded-lg shadow p-4 mb-4">
+  <h4 class="text-xl font-bold mb-2"><%= @user.first_name %></h4>
 
-<h4><%= @user.first_name %></h4>
-
-<ul>
-  <% @reports.each do |report| %>
-    <li>
-      <%= report.challenge_unit.rep_name %>
-      <%= report.rep_count %>
-      <%= report.point_value %>
-    </li>
+  <% @user_reports_by_challenge_unit.each do |challenge_unit, reports| %>
+    <div class="mb-4">
+      <h3 class="text-lg font-semibold mb-2">Rep: <%= challenge_unit.rep_name %></h3>
+      <ul>
+        <% reports.each do |report| %>
+          <li class="flex items-center mb-1">
+            <span class="font-semibold mr-2">Count:</span>
+            <%= report.rep_count %>
+            <span class="font-semibold ml-4 mr-2">Points:</span>
+            <%= report.point_value %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
-</ul>
+</div>

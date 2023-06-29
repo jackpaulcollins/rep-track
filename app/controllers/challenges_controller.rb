@@ -8,7 +8,10 @@ class ChallengesController < ApplicationController
 
   def user_reports
     @user = User.find(params[:user_id])
-    @reports = @challenge.reports.joins(:challenge_unit).where(user: @user)
+
+    @user_reports_by_challenge_unit = @user.reports.joins(:challenge_unit)
+      .where(challenge_units: {challenge: @challenge})
+      .group_by(&:challenge_unit)
 
     render :user_challenge_reports
   end
@@ -19,7 +22,7 @@ class ChallengesController < ApplicationController
 
   def public_challenges
     @pagy, @public_challenges = pagy(Challenge.unscoped.public_challenges.sort_by_params(params[:sort], sort_direction))
-    
+
     render :public_challenges
   end
 
