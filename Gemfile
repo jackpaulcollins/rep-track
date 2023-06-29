@@ -75,7 +75,7 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
   gem "pry-byebug"
-  gem 'faker', require: false
+  gem "faker", require: false
 end
 
 group :test do

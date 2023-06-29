@@ -1,7 +1,7 @@
 Account.all.each do |account|
   rand(5..25).times do
     start_date = Faker::Date.between(from: 3.months.ago, to: Date.today + 3.months)
-    public_challenge = rand(4).zero? ? true : false
+    public_challenge = rand(4).zero?
     challenge = Challenge.new(
       name: Faker::Name.first_name,
       start_date: start_date,
@@ -10,7 +10,7 @@ Account.all.each do |account|
       # 25% shot of being public
       is_public_challenge: public_challenge,
       account_id: account.id,
-      challenge_owner_id: account.owner.id,
+      challenge_owner_id: account.owner.id
     )
 
     if public_challenge

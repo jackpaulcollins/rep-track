@@ -3,11 +3,12 @@ Rails.application.routes.draw do
   resources :challenge_units
   resources :challenges do
     member do
-      get "bulk_invite"
-      post "submit_bulk_invite"
+      get :bulk_invite
+      post :submit_bulk_invite
       post :add_units
-      get :leaderboard, to: "challenges#challenge_leaderboard"
+      get :leaderboard, action: :challenge_leaderboar
       post :new_unit_form
+      get "reports/:user_id", action: :user_reports, as: :user_reports
     end
     collection do
       get :my_challenges, to: "challenges#current_user_challenges"

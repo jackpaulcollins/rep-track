@@ -1,4 +1,4 @@
-require 'faker'
+require "faker"
 
 def load_development_seeds(name)
   ActiveRecord::Base.transaction do
@@ -7,12 +7,12 @@ def load_development_seeds(name)
 end
 
 begin
-  ActiveRecord::Base.logger = Logger.new(STDOUT)
+  ActiveRecord::Base.logger = Logger.new($stdout)
   load_development_seeds("accounts")
   load_development_seeds("users")
   load_development_seeds("challenges")
   load_development_seeds("reports")
-rescue StandardError => e
+rescue => e
   puts "An error occurred: #{e.message}"
   puts e.backtrace.join("\n")
 ensure

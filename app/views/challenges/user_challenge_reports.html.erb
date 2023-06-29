@@ -1,0 +1,29 @@
+<div class="text-center flex flex-row w-1/2 m-auto items-end justify-between">
+  <h1><%= @user.first_name %></h1>
+  <%= link_to "< back to challenge", challenge_path(@challenge), class: "mb-2" %>
+</div>
+
+<div class="w-1/2 m-auto">
+  <% @user_reports_by_challenge_unit.each do |(challenge_unit, created_at), reports| %>
+    <div class="bg-white rounded-lg shadow p-4 mb-4">
+      <h3 class="text-lg font-semibold mb-2"><%= challenge_unit.rep_name %></h3>
+
+      <% reports.group_by { |report| report.created_at.to_date }.each do |date, reports_by_date| %>
+        <div class="mb-2">
+          <div class="bg-gray-100 rounded p-2">
+            <span class="font-semibold">Date: <%= date.to_s %></span>
+
+            <ul class="mt-2">
+              <% reports_by_date.each do |report| %>
+                <li class="mb-1 ml-2 list-none">
+                  <span class="font-semibold">Rep Count:</span> <%= report.rep_count %>
+                  <span class="font-semibold">Points:</span> <%= report.point_value %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

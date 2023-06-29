@@ -8,7 +8,7 @@ rand(1..100).times do
     accepted_privacy_at: DateTime.now,
     password: "password",
     password_confirmation: "password",
-    terms_of_service: true,
+    terms_of_service: true
   }
 
   User.create!(params)
