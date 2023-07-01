@@ -37,6 +37,7 @@ class ChallengeInvitation < ApplicationRecord
   def accept!(user, challenge)
     user.add_to_account_from_challenge!(challenge)
     challenge.enroll_from_invite!(user, challenge.account)
+    user.update!(default_account: challenge.account)
     destroy!
   end
 

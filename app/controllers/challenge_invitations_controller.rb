@@ -17,6 +17,7 @@ class ChallengeInvitationsController < ApplicationController
     user = user_if_present
     challenge = Challenge.unscoped.find(@challenge_invitation.challenge_id)
     if user
+      sign_in(user, event: :authentication)
       @challenge_invitation.accept!(user, challenge)
       redirect_to challenge, notice: "You've successfully enrolled in #{challenge.name}!"
     else
