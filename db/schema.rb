@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_27_022331) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_01_063039) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -376,6 +376,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_27_022331) do
     t.string "otp_secret"
     t.integer "last_otp_timestep"
     t.text "otp_backup_codes"
+    t.bigint "default_account_id"
+    t.index ["default_account_id"], name: "index_users_on_default_account_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
@@ -408,4 +410,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_27_022331) do
   add_foreign_key "reports", "challenge_units"
   add_foreign_key "reports", "challenges"
   add_foreign_key "reports", "users"
+  add_foreign_key "users", "accounts", column: "default_account_id"
 end

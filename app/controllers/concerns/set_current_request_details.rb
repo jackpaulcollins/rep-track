@@ -42,6 +42,7 @@ module SetCurrentRequestDetails
 
   def fallback_account
     return unless user_signed_in?
+    return current_user.default_account if current_user.has_default_account?
     current_user.accounts.includes(:payment_processor, :users).order(created_at: :asc).first || current_user.create_default_account
   end
 end

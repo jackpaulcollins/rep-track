@@ -33,16 +33,22 @@
 #  unconfirmed_email      :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  default_account_id     :bigint
 #  invited_by_id          :bigint
 #
 # Indexes
 #
+#  index_users_on_default_account_id                 (default_account_id)
 #  index_users_on_email                              (email) UNIQUE
 #  index_users_on_invitation_token                   (invitation_token) UNIQUE
 #  index_users_on_invitations_count                  (invitations_count)
 #  index_users_on_invited_by_id                      (invited_by_id)
 #  index_users_on_invited_by_type_and_invited_by_id  (invited_by_type,invited_by_id)
 #  index_users_on_reset_password_token               (reset_password_token) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (default_account_id => accounts.id)
 #
 
 class User < ApplicationRecord
@@ -73,6 +79,7 @@ class User < ApplicationRecord
   has_many :challenges, through: :challenge_enrollments
   has_many :challenges, class_name: "Challenge", foreign_key: "challenge_owner_id", dependent: :destroy
   has_many :reports, dependent: :destroy
+  belongs_to :default_account, class_name: "Account", foreign_key: "default_account_id", optional: true
 
   # We don't need users to confirm their email address on create,
   # just when they change it
@@ -88,6 +95,10 @@ class User < ApplicationRecord
 
   attr_accessor :skip_add_to_default_account
   after_create :add_to_default_account!, unless: :skip_add_to_default_account?
+
+  def has_default_account?
+    !default_account.nil?
+  end
 
   # When ActionText rendering mentions in plain text
   def attachable_plain_text_representation(caption = nil)
