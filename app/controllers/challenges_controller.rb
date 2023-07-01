@@ -22,7 +22,6 @@ class ChallengesController < ApplicationController
 
   def public_challenges
     @pagy, @public_challenges = pagy(Challenge.unscoped.public_challenges.sort_by_params(params[:sort], sort_direction))
-
     render :public_challenges
   end
 
@@ -134,6 +133,7 @@ class ChallengesController < ApplicationController
 
   def set_to_default_account
     ensure_current_user_in_default_account
+    flash.now[:notice] = "Heads up, when you view public challenges you are automatically logged into the RepTrack account. Use the account picker to switch back if you want to see private challenges." unless Current.account == Account.default_account
     Current.account = Account.default_account
     session[:account_id] = Account.default_account.id
   end
