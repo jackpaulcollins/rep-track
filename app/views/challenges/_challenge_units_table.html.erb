@@ -8,10 +8,10 @@
 
         <% challenge_units.each do |cu| %>
           <%= turbo_frame_tag cu do %>
-            <div class="flex py-4 text-sm font-medium text-gray-900 justify-between border-b-2 border-gray-300">
-              <div class="flex justify-between w-2/3">
+            <div class="flex py-4 text-gray-900 justify-between border-b-2 border-gray-300">
+              <div class="flex justify-between w-full">
                 <div>
-                  <span class="whitespace-nowrap pr-3"><%= cu.rep_name %></span>
+                  <span class="whitespace-nowrap pr-3 text-sm"><%= cu.rep_name %></span>
                   <% unless cu.active? %>
                     <%= content_tag :span, "(#{cu.state})", class: "text-l font-light text-gray-500" %>
                   <% end %>
