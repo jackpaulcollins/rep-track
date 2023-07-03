@@ -26,6 +26,10 @@
 
       <main class="flex-1">
         <%= render "challenge_leaderboard", { challenge: challenge } %>
+        <div class="lg:hidden border-y-2 border-primary-600 mt-8 mb-8"></div>
+        <div class="lg:hidden">
+          <%= render partial: "challenge_units_table", locals: { challenge_units: challenge.challenge_units } %>
+        </div>
       </main>
 
       <aside class="sticky w-80 top-8 hidden shrink-0 lg:block">
