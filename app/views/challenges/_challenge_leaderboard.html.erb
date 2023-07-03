@@ -10,8 +10,8 @@
           <% badge = leaderboard_badge(index) %>
           <div class="flex py-4 text-sm font-medium text-gray-900 justify-between">
             <div class="flex justify-between w-2/3">
-              <p class="whitespace-nowrap pr-3"><%= "#{badge} #{user[0].first_name} #{user[0].last_name}" %></p>
-              <p class="whitespace-nowrap pr-3"><%= points %></p>
+              <p class="whitespace-nowrap pr-3"><%= "#{badge} #{user[0].full_name}" %></p>
+              <p class="inline-flex min-w-[4rem] whitespace-nowrap text-left"><%= points %></p>
             </div>
             <%= link_to "Reports", user_reports_challenge_path(user_id: user[0].id), class: 'font-bold text-primary-600 hover:text-primary-900 ml-4' %>
           </div>
