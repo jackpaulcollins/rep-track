@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_01_063039) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_03_174416) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -166,6 +166,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_01_063039) do
     t.bigint "challenge_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_admin_adjustment", default: false
     t.index ["challenge_id"], name: "index_challenge_units_on_challenge_id"
   end
 

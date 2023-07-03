@@ -2,12 +2,13 @@
 #
 # Table name: challenge_units
 #
-#  id           :bigint           not null, primary key
-#  points       :integer
-#  rep_name     :string
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  challenge_id :bigint           not null
+#  id                  :bigint           not null, primary key
+#  is_admin_adjustment :boolean          default(FALSE)
+#  points              :integer
+#  rep_name            :string
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  challenge_id        :bigint           not null
 #
 # Indexes
 #
