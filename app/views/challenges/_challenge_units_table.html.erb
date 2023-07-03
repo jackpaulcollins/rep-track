@@ -9,6 +9,9 @@
         <div class="flex-1 min-w-0 px-4 md:grid md:grid-cols-2 md:gap-4">
           <div>
             <%= content_tag :span, cu.rep_name, class: "text-l font-bold text-gray-900" %>
+            <% unless cu.active? %>
+              <%= content_tag :span, "(#{cu.state})", class: "text-l font-light text-gray-500" %>
+            <% end %>
           </div>
           <div>
             <%= content_tag :span, "#{cu.points} points", class: "text-sm font-bold text-gray-500" %>
