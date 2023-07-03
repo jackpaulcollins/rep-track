@@ -17,9 +17,22 @@
       <%= challenge.public_data_display %>
     </div>
   </div>
-  <div class="flex flex-row w-full">
-    <div class="w-1/2">
-      <div class="mb-12">
+  <div class="flex flex-col min-h-full w-full">
+    <div class="mx-auto flex w-full max-w-7xl justify-between gap-x-8 px-4 py-10 sm:px-6 lg:px-4">
+
+      <aside class="sticky w-80 top-8 hidden lg:block">
+        <%= render partial: "challenge_participants_table", locals: { participants: challenge.challenge_enrollments, challenge: challenge } %>
+      </aside>
+
+      <main class="flex-1">
+        <%= render "challenge_leaderboard", { challenge: challenge } %>
+        <div class="lg:hidden border-y-2 border-primary-600 mt-8 mb-8"></div>
+        <div class="lg:hidden">
+          <%= render partial: "challenge_units_table", locals: { challenge_units: challenge.challenge_units } %>
+        </div>
+      </main>
+
+      <aside class="sticky w-80 top-8 hidden shrink-0 lg:block">
         <%= render partial: "challenge_units_table", locals: { challenge_units: challenge.challenge_units } %>
         <% if challenge.user_can_edit_challenge?(current_user, current_account) %>
           <turbo-frame id="<%= "#{challenge.id}_add_unit" %>">
@@ -28,13 +41,12 @@
             <% end %>
           </turbo-frame>
         <% end %>
-      </div>
-      <div class="mt-12">
-        <%= render partial: "challenge_participants_table", locals: { participants: challenge.challenge_enrollments, challenge: challenge } %>
-      </div>
-    </div>
-    <div class="w-2/3">
-      <%= render "challenge_leaderboard", { challenge: challenge } %>
+      </aside>
+
     </div>
   </div>
 </div>
+
+
+
+
