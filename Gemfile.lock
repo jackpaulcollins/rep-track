@@ -438,6 +438,13 @@ GEM
     standard-performance (1.1.0)
       lint_roller (~> 1.0)
       rubocop-performance (~> 1.18.0)
+    state_machines (0.6.0)
+    state_machines-activemodel (0.9.0)
+      activemodel (>= 6.0)
+      state_machines (>= 0.6.0)
+    state_machines-activerecord (0.9.0)
+      activerecord (>= 6.0)
+      state_machines-activemodel (>= 0.9.0)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
     subroutine (1.0.1)
@@ -544,6 +551,7 @@ DEPENDENCIES
   sidekiq
   sprockets-rails (>= 3.4.1)
   standard
+  state_machines-activerecord
   stimulus-rails (~> 1.0, >= 1.0.2)
   subroutine (~> 1.0, >= 1.0.1)
   turbo-rails (~> 1.0, >= 1.0.1)

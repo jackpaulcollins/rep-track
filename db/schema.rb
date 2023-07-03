@@ -166,7 +166,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_03_174416) do
     t.bigint "challenge_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "is_admin_adjustment", default: false
+    t.string "state"
     t.index ["challenge_id"], name: "index_challenge_units_on_challenge_id"
   end
 
