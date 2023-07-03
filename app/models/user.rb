@@ -123,4 +123,8 @@ class User < ApplicationRecord
   def skip_add_to_default_account?
     skip_add_to_default_account
   end
+
+  def full_name
+    [first_name, last_name].compact.join(' ')
+  end
 end
