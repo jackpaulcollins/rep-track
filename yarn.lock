@@ -363,14 +363,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rails/actiontext@npm:^7.0.0":
-  version: 7.0.5
-  resolution: "@rails/actiontext@npm:7.0.5"
+"@rails/actiontext@npm:^7.0.6":
+  version: 7.0.6
+  resolution: "@rails/actiontext@npm:7.0.6"
   dependencies:
     "@rails/activestorage": ">= 7.0.0-alpha1"
   peerDependencies:
     trix: ^1.3.1
-  checksum: 7a37bf55a37e7fa74db5345f8a89363a1636b0596557503360967d3d1d838f740950e8994331636a4714effae95f338fd06ddbe4e8c9a8bd12512b9f01e658fd
+  checksum: 9aef7decbb3afa3088993663bf6a14433ee15cc76ebe1495b42761d4eee319c0f0f216c7ca640f47a975f6eb59da784e1f7900529cc629b32a7b2dc0fdb5a889
   languageName: node
   linkType: hard
 
@@ -1383,7 +1383,7 @@ __metadata:
     "@hotwired/stimulus": ^3.0.1
     "@hotwired/turbo-rails": ^7.2.0
     "@rails/actioncable": ^7.0.0
-    "@rails/actiontext": ^7.0.0
+    "@rails/actiontext": ^7.0.6
     "@rails/activestorage": ^7.0.0
     "@rails/request.js": ^0.0.8
     "@rails/ujs": ^7.0.0
