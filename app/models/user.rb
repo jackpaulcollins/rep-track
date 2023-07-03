@@ -126,7 +126,7 @@ class User < ApplicationRecord
 
   def full_name
     full_name = [first_name, last_name].compact.join(' ')
-    if full_name.length > 15
+    if full_name.length > 10
       last_initial = last_name[0].upcase + '.'
       full_name = [first_name, last_initial].compact.join(' ')
     end
