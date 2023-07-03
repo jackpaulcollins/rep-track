@@ -24,4 +24,13 @@ class ChallengeUnit < ApplicationRecord
   validates :points, presence: true
 
   has_many :reports, dependent: :destroy
+
+  scope :active, -> { where(state: 'active') }
+
+  state_machine initial: :active do
+    event :deactivate do
+      transition active: :inactive
+    end
+  end
+
 end

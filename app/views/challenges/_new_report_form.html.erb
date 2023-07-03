@@ -3,10 +3,9 @@
     <div>
       <%= form.label :challenge_unit, "Rep", class: "block text-sm font-medium text-gray-700" %>
       <%= form.collection_select :challenge_unit_id,
-                                  @challenge.challenge_units,
+                                  @challenge.challenge_units.active,
                                   :id,
-                                  :rep_name
-      %>
+                                  :rep_name %>
     </div>
 
     <div class="form-group">
