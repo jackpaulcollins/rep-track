@@ -30,8 +30,6 @@ class ChallengeUnitsController < ApplicationController
 
   # GET /challenge_units/1/edit
   def edit
-    @cu = ChallengeUnit.find(params[:id])
-    render turbo_stream: turbo_stream.replace(dom_id(@cu), partial: "challenges/challenge_unit_edit_form")
   end
 
   # POST /challenge_units or /challenge_units.json

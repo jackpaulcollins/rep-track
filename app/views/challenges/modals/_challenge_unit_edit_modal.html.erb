@@ -1,0 +1,12 @@
+<div data-controller="modal" class="mr-2">
+  <button class="font-bold text-indigo-600 hover:text-indigo-900 ml-4" data-action="click->modal#open">edit</button>
+  <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard" class="fixed inset-0 flex items-center justify-center hidden overflow-y-auto animated fadeIn" style="z-index: 9999;">
+    <div class="relative w-full max-w-lg max-h-screen">
+      <div class="m-1 bg-white rounded shadow">
+        <div class="p-8">
+          <%= render partial: "challenges/challenge_unit_edit_form", locals: { cu: cu } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

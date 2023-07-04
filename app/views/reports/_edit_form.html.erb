@@ -1,35 +1,18 @@
-<li class="list-none w-full p-2">
-  <%= form_with model: @report, url: report_path(@report), method: :patch, local: true, data: { turbo_frame: 'edit-form' } do |form| %>
-    <div class="flex flex-row items-center">
-        <div class="w-1/3">
-          <div class="flex flex-row items-center w-1/2 m-auto">
-            <%= form.label :challenge_unit, "Type", class: "text-sm font-medium mr-2" %>
-            <%= form.collection_select :challenge_unit_id,
-                                      @report.challenge.challenge_units,
-                                      :id,
-                                      :rep_name %>
-          </div>
-        </div>
-        <div class="w-1/3 m-auto">
-          <div class="flex flex-row items-center text-sm font-medium truncate w-1/2">
-            <%= form.label :count, class: "mr-2" %>
-            <%= form.number_field :rep_count, class: "form-control" %>
-            <%= form.submit "update", class: "text-indigo-600 hover:text-indigo-900 font-semibold ml-4" %>
-          </div>
-        </div>
-        <div class="flex flex-row w-1/3 text-sm text-gray-800 justify-end">
-          <%= link_to report_path(@report), method: :delete, class: "text-black font-semibold hover:text-danger-900", data: { confirm: "Are you sure you want to destroy this report?" } do %>
-            <span class="mr-4">
-              <i class="fa-solid fa-trash"></i>
-            </span>
-          <% end %>
-
-          <%= link_to reports_path, class: "text-danger-600 font-semibold hover:text-danger-900", data: { turbo_frame_action: "replace", turbo_frame_target: "edit-form" } do %>
-            <span class="mr-1">
-              cancel
-            </span>
-          <% end %>
-        </div>
-    </div>
-  <% end %>
-</li>
+<div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+  <div class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+    <%= form_with model: report, url: report_path(report), method: :patch, local: true, data: { turbo_frame: 'edit-form' } do |form| %>
+      <div>
+        <%= form.label :challenge_unit, "Type" %>
+        <%= form.collection_select :challenge_unit_id, report.challenge.challenge_units.active, :id, :rep_name, class: "form-control" %>
+      </div>
+      <div>
+        <%= form.label :count %>
+        <%= form.number_field :rep_count, class: "form-control" %>
+      </div>
+      <div class="mt-5 flex flex-row">
+        <%= button_to "Delete", report_path(report), class: "inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2", method: :delete, data: { confirm: "Are you sure you want to destroy this report?" } %>
+        <%= form.submit "Update", class:"inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2" %>
+      </div>
+    <% end %>
+  </div>
+</div>
