@@ -2,29 +2,26 @@
   <div class="overflow-x-auto sm:w-auto">
     <div class="flow-root sm:overflow-auto">
       <div class="justify-start">
-        <div class="inline flex text-left text-sm font-semibold text-gray-900 w-full border-b-2 border-gray-300">
+        <div class="inline-flex text-left text-sm font-semibold text-gray-900 w-full border-b-2 border-gray-300">
           <h1 class="text-base font-semibold leading-6 text-gray-900 sm:pl-0 mr-2">Reps</h1>
         </div>
-
         <% challenge_units.each do |cu| %>
-          <%= turbo_frame_tag cu do %>
-            <div class="flex py-4 text-gray-900 justify-between border-b-2 border-gray-300">
-              <div class="flex justify-between w-full">
-                <div>
-                  <span class="whitespace-nowrap pr-3 text-sm"><%= cu.rep_name %></span>
-                  <% unless cu.active? %>
-                    <%= content_tag :span, "(#{cu.state})", class: "text-l font-light text-gray-500" %>
-                  <% end %>
-                </div>
-                <span class="whitespace-nowrap pr-3"><%= cu.points %></span>
+          <div class="flex py-4 text-gray-900 justify-between border-b-2 border-gray-300">
+            <div class="flex justify-between w-full">
+              <div>
+                <span class="whitespace-nowrap pr-3 text-sm"><%= cu.rep_name %></span>
+                <% unless cu.active? %>
+                  <%= content_tag :span, "(#{cu.state})", class: "text-l font-light text-gray-500" %>
+                <% end %>
               </div>
-              <% if cu.challenge.user_can_edit_challenge?(current_user, current_account) %>
-                <div class="relative text-right text-sm sm:pr-0">
-                  <%= link_to 'Edit', edit_challenge_unit_path(cu), class: 'font-bold text-indigo-600 hover:text-indigo-900 ml-4', data: { turbo_frame: dom_id(cu, 'edit-form') } %>
-                </div>
-              <% end %>
+              <span class="whitespace-nowrap pr-3"><%= cu.points %></span>
             </div>
-          <% end %>
+            <% if cu.challenge.user_can_edit_challenge?(current_user, current_account) %>
+              <div class="relative text-right text-sm sm:pr-0">
+                <%= render partial: "challenges/modals/challenge_unit_edit_modal", locals: { cu: cu } %>
+              </div>
+            <% end %>
+          </div>
         <% end %>
       </div>
     </div>

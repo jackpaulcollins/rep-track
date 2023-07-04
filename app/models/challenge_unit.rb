@@ -25,12 +25,11 @@ class ChallengeUnit < ApplicationRecord
 
   has_many :reports, dependent: :destroy
 
-  scope :active, -> { where(state: 'active') }
+  scope :active, -> { where(state: "active") }
 
   state_machine initial: :active do
     event :deactivate do
       transition active: :inactive
     end
   end
-
 end

@@ -32,7 +32,7 @@
         </div>
       </main>
 
-      <aside class="sticky w-80 top-8 hidden shrink-0 lg:block">
+      <aside class="w-80 top-8 hidden shrink-0 lg:block">
         <%= render partial: "challenge_units_table", locals: { challenge_units: challenge.challenge_units } %>
         <% if challenge.user_can_edit_challenge?(current_user, current_account) %>
           <turbo-frame id="<%= "#{challenge.id}_add_unit" %>">
@@ -46,7 +46,3 @@
     </div>
   </div>
 </div>
-
-
-
-

@@ -1,31 +1,41 @@
+
+
 <% @reports_by_challenge.each do |challenge, reports| %>
   <h4 class="m-4"><%= link_to challenge, challenge_path(reports[0].challenge) %></h4>
   <div class="overflow-hidden bg-white shadow sm:rounded-md">
     <ul role="list" class="list-none">
       <% reports.each do |report| %>
-          <turbo_frame id="<%= dom_id report, 'edit-form' %>">
-            <li>
-              <div class="flex items-center px-4 py-4 sm:px-6">
-                <div class="flex flex-1 min-w-0">
-                  <div class="flex-1 min-w-0 px-4 md:grid md:grid-cols-2 md:gap-4">
-                    <p class="text-sm font-medium truncate">
-                      <span class="text-xl font-semibold"><%= report.rep_count %></span>
-                      <span class="text-gray-500 font-light"><%= report.challenge_unit.rep_name.pluralize %></span>
-                    </p>
-                    <p class="text-sm font-medium truncate">
-                      <span class="text-xl font-semibold"><%= report.point_value %></span>
-                      <span class="text-gray-500 font-light">points</span>
-                    </p>
-                  </div>
-                  <p class="flex flex-row mt-2 text-sm text-gray-800 align-center">
-                    <span class="text-sm font-semibold mr-2">Completed On</span>
-                    <span><%= report.created_at.in_time_zone(current_user.time_zone).strftime('%Y-%m-%d %l:%M%P') %></span>
-                    <%= link_to 'Edit', edit_report_path(report), class: 'text-indigo-600 hover:text-indigo-900 ml-4 font-semibold', data: { turbo_frame: dom_id(report, 'edit-form') } %>
-                  </p>
+        <li class="border-b border-gray-300">
+          <div class="flex items-center px-4 py-4 sm:px-6">
+            <div class="flex flex-1 min-w-0">
+              <div class="flex-1 min-w-0 px-4 md:grid md:grid-cols-2 md:gap-4">
+                <p class="text-sm font-medium truncate">
+                  <span class="text-xl font-semibold"><%= report.rep_count %></span>
+                  <span class="text-gray-500 font-light"><%= report.challenge_unit.rep_name.pluralize %></span>
+                </p>
+                <p class="text-sm font-medium truncate">
+                  <span class="text-xl font-semibold"><%= report.point_value %></span>
+                  <span class="text-gray-500 font-light">points</span>
+                </p>
+              </div>
+              <div class="md:flex flex-row mt-2 text-sm text-gray-800 items-center justify-between">
+                <span class="hidden md:inline-block md:text-sm mr-2">Completed at:</span>
+                <span class="hidden md:inline-block md:text-sm font-semibold mr-2"><%= report.created_at.in_time_zone(current_user.time_zone).strftime('%Y-%m-%d %l:%M%P') %></span>
+                <div class="">
+                  <%= render(
+                        ModalProviderComponent.new(
+                          form: true,
+                          open_text: "edit",
+                          header: "Edit this report",
+                          form_partial: "edit_form",
+                          locals: report
+                          )
+                        ) %>
                 </div>
               </div>
-            </li>
-        </turbo_frame>
+            </div>
+          </div>
+        </li>
       <% end %>
     </ul>
   </div>

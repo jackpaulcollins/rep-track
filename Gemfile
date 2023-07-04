@@ -47,6 +47,7 @@ gem "postmark-rails"
 gem "subroutine", "~> 1.0", ">= 1.0.1"
 gem "clipboard"
 gem "state_machines-activerecord"
+gem "view_component"
 
 group :development, :test do
   # Optional debugging tools
