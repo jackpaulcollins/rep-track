@@ -1,9 +1,11 @@
+
+
 <% @reports_by_challenge.each do |challenge, reports| %>
   <h4 class="m-4"><%= link_to challenge, challenge_path(reports[0].challenge) %></h4>
   <div class="overflow-hidden bg-white shadow sm:rounded-md">
     <ul role="list" class="list-none">
       <% reports.each do |report| %>
-        <li>
+        <li class="border-b border-gray-300">
           <div class="flex items-center px-4 py-4 sm:px-6">
             <div class="flex flex-1 min-w-0">
               <div class="flex-1 min-w-0 px-4 md:grid md:grid-cols-2 md:gap-4">
@@ -16,11 +18,21 @@
                   <span class="text-gray-500 font-light">points</span>
                 </p>
               </div>
-              <p class="hidden lg:flex flex-row mt-2 text-sm text-gray-800 items-center">
-                <span class="text-sm font-semibold mr-2">Completed On</span>
-                <span><%= report.created_at.in_time_zone(current_user.time_zone).strftime('%Y-%m-%d %l:%M%P') %></span>
-                <%= render partial: "reports/modals/report_edit_modal", locals: { report: report } %>
-              </p>
+              <div class="md:flex flex-row mt-2 text-sm text-gray-800 items-center justify-between">
+                <span class="hidden md:inline-block md:text-sm mr-2">Completed at:</span>
+                <span class="hidden md:inline-block md:text-sm font-semibold mr-2"><%= report.created_at.in_time_zone(current_user.time_zone).strftime('%Y-%m-%d %l:%M%P') %></span>
+                <div class="">
+                  <%= render(
+                        ModalProviderComponent.new(
+                          form: true,
+                          open_text: "edit",
+                          header: "Edit this report",
+                          form_partial: "edit_form",
+                          locals: report
+                          )
+                        ) %>
+                </div>
+              </div>
             </div>
           </div>
         </li>
