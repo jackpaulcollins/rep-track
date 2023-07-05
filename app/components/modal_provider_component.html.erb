@@ -1,5 +1,5 @@
 <div data-controller="modal">
-  <button class="text-indigo-600 hover:text-indigo-900 ml-4" data-action="click->modal#open"><%= @open_text %></button>
+  <button class="<%= open_styling %>" data-action="click->modal#open"><%= @open_text %></button>
   <div data-modal-target="container" data-action="keyup@window->modal#closeWithKeyboard" class="fixed inset-0 flex items-center justify-center hidden overflow-y-auto animated fadeIn" style="z-index: 9999;">
     <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
       <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>

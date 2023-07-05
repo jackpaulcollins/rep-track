@@ -21,14 +21,14 @@
               <div class="md:flex flex-row mt-2 text-sm text-gray-800 items-center justify-between">
                 <span class="hidden md:inline-block md:text-sm mr-2">Completed at:</span>
                 <span class="hidden md:inline-block md:text-sm font-semibold mr-2"><%= report.created_at.in_time_zone(current_user.time_zone).strftime('%Y-%m-%d %l:%M%P') %></span>
-                <div class="">
+                <div>
                   <%= render(
                         ModalProviderComponent.new(
                           form: true,
                           open_text: "edit",
                           header: "Edit this report",
                           form_partial: "edit_form",
-                          locals: report
+                          form_records: [report]
                           )
                         ) %>
                 </div>
