@@ -102,15 +102,15 @@ class Challenge < ApplicationRecord
     leaderboard.sort_by { |_, value| value }.reverse.to_h
   end
 
-  def point_chart_data(current_user)
-    data = challenge_enrollments.map { |e| {name: e.user.full_name, data: get_daily_points(e, current_user)} }
+  def point_chart_data
+    data = challenge_enrollments.map { |e| {name: e.user.full_name, data: get_daily_points(e)} }
     sorted_by_sum = data.sort_by { |data| -data[:data].values.sum }
     # only show the top ten or chartkick gets crowded
     sorted_by_sum.take(10)
   end
 
-  def get_daily_points(enrollment, current_user)
-    date_range = start_date.to_date..Date.today.to_date
+  def get_daily_points(enrollment)
+    date_range = start_date.in_time_zone(enrollment.user.time_zone).to_date..Date.today.in_time_zone(enrollment.user.time_zone).to_date
 
     points = 0
     date_range.map { |d| [d.to_s, points += enrollment.points_by_date(d)] }.to_h

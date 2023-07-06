@@ -10,7 +10,7 @@ class ChallengesController < ApplicationController
   # <% chart_data = users.map { |u| { name: u.first_name, data: u.reports.group_by_day(:created_at).count} } %>
 
   def chart_data
-    render json: @challenge.point_chart_data(current_user)
+    render json: @challenge.point_chart_data
   end
 
   def user_reports
