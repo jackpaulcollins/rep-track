@@ -30,7 +30,19 @@ class ChallengeEnrollment < ApplicationRecord
 
   acts_as_tenant :account
 
-  def points_by_date(date)
-    Report.where(challenge_enrollment: self, report_date: date).sum(&:point_value)
+  def points_by_date
+    by_date_with_points = Report.where(challenge_enrollment: self)
+      .group(:id, :report_date)
+      .order(:report_date).map { |r| [r.report_date, r.point_value] }
+
+    grouped_by_date = by_date_with_points.group_by { |date, _| date }
+
+    dates_and_sum = grouped_by_date.map { |date, array, _| [date, array.sum { |_, a| a }] }
+
+    accumulated_points = 0
+    dates_and_sum.each_with_object(Hash.new(0)) do |(date, points), hash|
+      hash[date] = points + accumulated_points
+      accumulated_points += points
+    end
   end
 end
