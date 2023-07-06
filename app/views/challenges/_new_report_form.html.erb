@@ -13,8 +13,8 @@
       <%= form.number_field :rep_count, class: "form-control" %>
     </div>
 
-    <%= form.hidden_field :challenge_enrollment_id, value: enrollment.id %>
-    <%= form.hidden_field :challenge_id, value: enrollment.challenge_id %>
+    <%= form.hidden_field :challenge_enrollment_id, value: challenge_enrollment.id %>
+    <%= form.hidden_field :challenge_id, value: challenge_enrollment.challenge_id %>
 
     <div class="flex flex-wrap items-center justify-end mt-8">
       <%= form.button button_text("Submit"), class: "btn btn-primary" %>

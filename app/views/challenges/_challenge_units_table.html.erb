@@ -18,7 +18,7 @@
             </div>
             <% if cu.challenge.user_can_edit_challenge?(current_user, current_account) %>
               <div class="relative text-right text-sm sm:pr-0">
-                <%= render partial: "challenges/modals/challenge_unit_edit_modal", locals: { cu: cu } %>
+                <%= render(ModalProviderComponent.new(form: true, open_text: "Edit", header: "Edit this rep", form_partial: "challenges/challenge_unit_edit_form", form_records: [cu])) %>
               </div>
             <% end %>
           </div>
