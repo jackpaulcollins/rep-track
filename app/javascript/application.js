@@ -20,5 +20,8 @@ import "./controllers"
 import "./src/**/*"
 require("local-time").start()
 
+// custom
+import "chartkick/chart.js"
+
 // Start Rails UJS
 Rails.start()

@@ -1,23 +1,29 @@
 <div class="flex flex-col" id="<%= dom_id challenge %>">
   <div class="flex flex-row w-full justify-evenly mb-12">
     <div class="flex flex-col items-center">
-      <p class="text-lg font-medium text-gray-500">Name</p>
+      <p class="text-lg font-medium">Name</p>
       <%= challenge.name %>
     </div>
     <div class="flex flex-col items-center">
-      <p class="text-lg font-medium text-gray-500">Start date</p>
+      <p class="text-lg font-medium">Start date</p>
       <%= challenge.start_date %>
     </div>
     <div class="flex flex-col items-center">
-      <p class="text-lg font-medium text-gray-500">End date</p>
+      <p class="text-lg font-medium">End date</p>
       <%= challenge.end_date.nil? ? "n/a" :  challenge.end_date %>
     </div>
     <div class="flex flex-col items-center">
-      <p class="text-lg font-medium text-gray-500">Public</p>
+      <p class="text-lg font-medium">Public</p>
       <%= challenge.public_data_display %>
     </div>
   </div>
   <div class="flex flex-col min-h-full w-full">
+    <div class="p-4 mb-2">
+      <p class="text-center text-lg mb-8 font-medium"> Reports By Day </p>
+      <% users = challenge.users %>
+      <% chart_data = users.map { |u| { name: u.first_name, data: u.reports.group_by_day(:created_at).count} } %>
+      <%= line_chart chart_data %>
+    </div>
     <div class="mx-auto flex w-full max-w-7xl justify-between gap-x-8 px-4 py-10 sm:px-6 lg:px-4">
 
       <aside class="sticky w-80 top-8 hidden lg:block">

@@ -48,6 +48,8 @@ gem "subroutine", "~> 1.0", ">= 1.0.1"
 gem "clipboard"
 gem "state_machines-activerecord"
 gem "view_component"
+gem "chartkick"
+gem "groupdate"
 
 group :development, :test do
   # Optional debugging tools
