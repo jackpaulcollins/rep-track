@@ -31,6 +31,6 @@ class ChallengeEnrollment < ApplicationRecord
   acts_as_tenant :account
 
   def points_by_date(date)
-    Report.where(challenge_enrollment: self, created_at: date.beginning_of_day..date.end_of_day).sum(&:point_value)
+    Report.where(challenge_enrollment: self, report_date: date).sum(&:point_value)
   end
 end
