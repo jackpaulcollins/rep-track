@@ -110,7 +110,7 @@ class Challenge < ApplicationRecord
   end
 
   def get_daily_points(enrollment, current_user)
-    date_range = start_date.to_date..Date.today.to_date + 1.day
+    date_range = start_date.to_date..Date.today.to_date
 
     points = 0
     date_range.map { |d| [d.to_s, points += enrollment.points_by_date(d)] }.to_h
