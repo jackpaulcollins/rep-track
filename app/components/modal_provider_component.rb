@@ -21,7 +21,7 @@ class ModalProviderComponent < ViewComponent::Base
   end
 
   def open_styling
-    @open_styling.nil? ? "text-indigo-600 hover:text-indigo-900" : determine_open_styles
+    @open_styling.nil? ? "text-indigo-600 hover:text-indigo-900 font-medium" : determine_open_styles
   end
 
   private

@@ -2,22 +2,21 @@
 
 <%= turbo_stream_from @challenge %>
   <div class="container px-4 mx-auto my-8">
-      <div class="flex justify-evenly mb-4">
-        <% if @challenge.is_challenge_owner?(current_user) %>
-          <%= render(ModalProviderComponent.new(form: true, open_text: "Invite!", header: "Invite someone to this challenge", form_partial: "invite_user_form", form_records: [@challenge], open_styling: :primary_button)) %>
-        <% end %>
-        <% if @challenge.user_can_enroll?(current_user) %>
-          <%= button_to "Enroll", enroll_challenge_enrollment_path(@challenge), method: :post, class: "btn btn-primary mr-2" %>
-        <% end %>
+    <div class="flex justify-evenly mb-4">
+      <% if @challenge.is_challenge_owner?(current_user) %>
+        <%= render(ModalProviderComponent.new(form: true, open_text: "Invite!", header: "Invite someone to this challenge", form_partial: "invite_user_form", form_records: [@challenge], open_styling: :primary_button)) %>
+      <% end %>
+      <% if @challenge.user_can_enroll?(current_user) %>
+        <%= button_to "Enroll", enroll_challenge_enrollment_path(@challenge), method: :post, class: "btn btn-primary mr-2" %>
+      <% end %>
 
-        <% if @challenge.user_enrolled_in_challenge?(current_user) %>
-          <%= render(ModalProviderComponent.new(form: true, open_text: "New Report", header: "Report reps", form_partial: "new_report_form", form_records: [@challenge, @challenge.enrollment_for_user(current_user)], open_styling: :primary_button)) %>
-          <%= button_to "Unenroll", unenroll_challenge_enrollment_path(@challenge, user_id: current_user.id), method: :post, class: "btn btn-danger mr-2", data: { turbo_confirm: "Unenrolling will erase your points." } %>
-        <% end %>
-        <% if @challenge.is_challenge_owner?(current_user) %>
-          <%= link_to t("edit"), edit_challenge_path(@challenge), class: "btn btn-white" %>
-        <% end %>
-      </div>
+      <% if @challenge.user_enrolled_in_challenge?(current_user) %>
+        <%= render(ModalProviderComponent.new(form: true, open_text: "New Report", header: "Report reps", form_partial: "new_report_form", form_records: [@challenge, @challenge.enrollment_for_user(current_user)], open_styling: :primary_button)) %>
+        <%= button_to "Unenroll", unenroll_challenge_enrollment_path(@challenge, user_id: current_user.id), method: :post, class: "btn btn-danger mr-2", data: { turbo_confirm: "Unenrolling will erase your points." } %>
+      <% end %>
+      <% if @challenge.is_challenge_owner?(current_user) %>
+        <%= link_to t("edit"), edit_challenge_path(@challenge), class: "btn btn-white" %>
+      <% end %>
     </div>
     <div class="p-8 bg-white rounded shadow">
       <%= render @challenge %>
