@@ -46,7 +46,7 @@ class Report < ApplicationRecord
   scope :for_user, ->(user) { where(user: user) }
 
   def set_report_date
-    self.report_date = created_at.in_time_zone(user.time_zone).to_date
+    self.report_date = DateTime.now.in_time_zone(user.time_zone).to_date
   end
 
   def challenge_unit_belongs_to_challenge_enrollment
