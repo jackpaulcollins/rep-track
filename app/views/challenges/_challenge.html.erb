@@ -19,10 +19,8 @@
   </div>
   <div class="flex flex-col min-h-full w-full">
     <div class="p-4 mb-2">
-      <p class="text-center text-lg mb-8 font-medium"> Reports By Day </p>
-      <% users = challenge.users %>
-      <% chart_data = users.map { |u| { name: u.first_name, data: u.reports.group_by_day(:created_at).count} } %>
-      <%= line_chart chart_data %>
+      <p class="text-center text-lg mb-8 font-medium"> Top 10 By Date </p>
+      <%= line_chart chart_data_challenge_path %>
     </div>
     <div class="mx-auto flex w-full max-w-7xl justify-between gap-x-8 px-4 py-10 sm:px-6 lg:px-4">
 

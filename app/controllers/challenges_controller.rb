@@ -2,9 +2,16 @@ require_relative "../services/bulk_invite_service"
 
 class ChallengesController < ApplicationController
   include Challenges::ChallengeConcern
-  before_action :set_challenge, only: [:user_reports, :bulk_invite, :submit_bulk_invite, :show, :edit, :update, :destroy, :add_units, :new_unit_form]
+  before_action :set_challenge, only: [:user_reports, :bulk_invite, :submit_bulk_invite, :show, :edit, :update, :destroy, :add_units, :new_unit_form, :chart_data]
   before_action :authenticate_user!
   before_action :set_to_default_account, only: [:public_challenges]
+
+  # <% users = challenge.users %>
+  # <% chart_data = users.map { |u| { name: u.first_name, data: u.reports.group_by_day(:created_at).count} } %>
+
+  def chart_data
+    render json: @challenge.point_chart_data(current_user)
+  end
 
   def user_reports
     @user = User.find(params[:user_id])

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       get :leaderboard, action: :challenge_leaderboar
       post :new_unit_form
       get "reports/:user_id", action: :user_reports, as: :user_reports
+      get :chart_data
     end
     collection do
       get :my_challenges, to: "challenges#current_user_challenges"

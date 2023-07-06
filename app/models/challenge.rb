@@ -93,12 +93,25 @@ class Challenge < ApplicationRecord
   end
 
   def leaderboard
-    reports_by_user = reports.group_by { |report| [report.user] }
+    reports_by_user = reports.group_by { |report| report.user }
 
     leaderboard = reports_by_user.each_with_object({}) do |(user, reports), hash|
       hash[user] = reports.sum(&:point_value)
     end
 
     leaderboard.sort_by { |_, value| value }.reverse.to_h
+  end
+
+  def point_chart_data(current_user)
+    data = challenge_enrollments.map { |e| {name: e.user.first_name, data: get_daily_points(e, current_user)} }
+    sorted_by_sum = data.sort_by { |data| -data[:data].values.sum }
+    sorted_by_sum.take(10)
+  end
+
+  def get_daily_points(enrollment, current_user)
+    date_range = start_date.in_time_zone(current_user.time_zone).to_date..Date.today.in_time_zone(current_user.time_zone).to_date
+
+    points = 0
+    date_range.map { |d| [d.to_s, points += enrollment.points_by_date(d)] }.to_h
   end
 end
