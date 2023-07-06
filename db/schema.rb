@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_06_213042) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_06_214614) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -340,6 +340,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_213042) do
     t.bigint "account_id", null: false
     t.date "report_date"
     t.index ["account_id"], name: "index_reports_on_account_id"
+    t.index ["challenge_enrollment_id", "report_date"], name: "index_reports_on_challenge_enrollment_id_and_report_date"
     t.index ["challenge_enrollment_id"], name: "index_reports_on_challenge_enrollment_id"
     t.index ["challenge_id"], name: "index_reports_on_challenge_id"
     t.index ["challenge_unit_id"], name: "index_reports_on_challenge_unit_id"
