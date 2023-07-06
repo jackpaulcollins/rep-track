@@ -4,6 +4,7 @@
 #
 #  id                      :bigint           not null, primary key
 #  rep_count               :integer          not null
+#  report_date             :date
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  account_id              :bigint           not null
@@ -40,7 +41,13 @@ class Report < ApplicationRecord
   validates :rep_count, presence: true
   validate :challenge_unit_belongs_to_challenge_enrollment
 
+  before_save :set_report_date
+
   scope :for_user, ->(user) { where(user: user) }
+
+  def set_report_date
+    self.report_date = created_at.in_time_zone(user.time_zone).to_date
+  end
 
   def challenge_unit_belongs_to_challenge_enrollment
     challenge_unit.challenge_id == challenge_enrollment.challenge_id

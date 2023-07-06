@@ -4,6 +4,7 @@
 #
 #  id                      :bigint           not null, primary key
 #  rep_count               :integer          not null
+#  report_date             :date
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  account_id              :bigint           not null
