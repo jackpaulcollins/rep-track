@@ -16,7 +16,6 @@
 # Indexes
 #
 #  index_reports_on_account_id                               (account_id)
-#  index_reports_on_challenge_enrollment_id                  (challenge_enrollment_id)
 #  index_reports_on_challenge_enrollment_id_and_report_date  (challenge_enrollment_id,report_date)
 #  index_reports_on_challenge_id                             (challenge_id)
 #  index_reports_on_challenge_unit_id                        (challenge_unit_id)

@@ -13,7 +13,6 @@
 #
 #  index_challenge_enrollments_on_account_id                (account_id)
 #  index_challenge_enrollments_on_challenge_id              (challenge_id)
-#  index_challenge_enrollments_on_user_id                   (user_id)
 #  index_challenge_enrollments_on_user_id_and_challenge_id  (user_id,challenge_id) UNIQUE
 #
 # Foreign Keys

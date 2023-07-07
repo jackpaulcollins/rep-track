@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_07_030408) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_07_042845) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "account_invitations", force: :cascade do |t|
@@ -143,7 +144,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_07_030408) do
     t.index ["account_id"], name: "index_challenge_enrollments_on_account_id"
     t.index ["challenge_id"], name: "index_challenge_enrollments_on_challenge_id"
     t.index ["user_id", "challenge_id"], name: "index_challenge_enrollments_on_user_id_and_challenge_id", unique: true
-    t.index ["user_id"], name: "index_challenge_enrollments_on_user_id"
   end
 
   create_table "challenge_invitations", force: :cascade do |t|
@@ -352,7 +352,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_07_030408) do
     t.date "report_date"
     t.index ["account_id"], name: "index_reports_on_account_id"
     t.index ["challenge_enrollment_id", "report_date"], name: "index_reports_on_challenge_enrollment_id_and_report_date"
-    t.index ["challenge_enrollment_id"], name: "index_reports_on_challenge_enrollment_id"
     t.index ["challenge_id"], name: "index_reports_on_challenge_id"
     t.index ["challenge_unit_id"], name: "index_reports_on_challenge_unit_id"
     t.index ["user_id"], name: "index_reports_on_user_id"
