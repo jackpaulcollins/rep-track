@@ -1,5 +1,9 @@
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
+  authenticate :user, -> (user) { user.admin? } do
+    mount PgHero::Engine, at: "pghero"
+  end
+
   resources :challenge_units
   resources :challenges do
     member do

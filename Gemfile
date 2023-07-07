@@ -50,6 +50,8 @@ gem "state_machines-activerecord"
 gem "view_component"
 gem "chartkick"
 gem "groupdate"
+gem "pghero"
+gem "pg_query", ">= 2"
 
 group :development, :test do
   # Optional debugging tools

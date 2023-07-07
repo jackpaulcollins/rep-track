@@ -31,7 +31,8 @@ class ChallengeEnrollment < ApplicationRecord
   acts_as_tenant :account
 
   def points_by_date
-    by_date_with_points = Report.where(challenge_enrollment: self)
+    by_date_with_points = Report.includes(:challenge_unit)
+      .where(challenge_enrollment: self)
       .group(:id, :report_date)
       .order(:report_date).map { |r| [r.report_date, r.point_value] }
 
