@@ -3,6 +3,7 @@
 # Table name: reports
 #
 #  id                      :bigint           not null, primary key
+#  point_value             :float
 #  rep_count               :integer          not null
 #  report_date             :date
 #  created_at              :datetime         not null
@@ -42,8 +43,13 @@ class Report < ApplicationRecord
   validate :challenge_unit_belongs_to_challenge_enrollment
 
   before_save :set_report_date
+  before_save :calculate_point_value
 
   scope :for_user, ->(user) { where(user: user) }
+
+  def calculate_point_value
+    self.point_value = self.rep_count * self.challenge_unit.points
+  end
 
   def set_report_date
     self.report_date = DateTime.now.in_time_zone(user.time_zone).to_date

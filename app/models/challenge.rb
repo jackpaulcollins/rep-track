@@ -107,4 +107,8 @@ class Challenge < ApplicationRecord
     sorted_by_sum = data.sort_by { |data| -data[:data].values.sum }
     sorted_by_sum.take(10)
   end
+
+  def top_ten
+    reports = challenge_enrollments.reports
+  end
 end

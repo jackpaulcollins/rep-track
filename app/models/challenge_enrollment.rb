@@ -30,10 +30,9 @@ class ChallengeEnrollment < ApplicationRecord
   acts_as_tenant :account
 
   def total_points_series
-    points_by_day = Report.includes(:challenge_unit).where(challenge_enrollment: self)
-    .joins(:challenge_unit)
+    points_by_day = Report.where(challenge_enrollment: self)
     .order(:report_date)
-    .pluck(:report_date, :rep_count)
+    .pluck(:report_date, :point_value)
 
     serialize_along_timeline(points_by_day)
   end
