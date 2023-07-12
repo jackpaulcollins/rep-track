@@ -93,17 +93,24 @@ class Challenge < ApplicationRecord
   end
 
   def leaderboard
-    reports_by_user = reports.group_by { |report| report.user }
-
-    leaderboard = reports_by_user.each_with_object({}) do |(user, reports), hash|
-      hash[user] = reports.sum(&:point_value)
-    end
-
-    leaderboard.sort_by { |_, value| value }.reverse.to_h
+    leaderboard = reports
+    .group(:user)
+    .order('SUM(reports.point_value) DESC')
+    .sum(:point_value)
   end
 
   def point_chart_data
-    top_ten.map { |e| {name: e.user.full_name, data: e.total_points_series} }
+    user_ids = top_ten.pluck(:user_id)
+    reports_by_user = Report
+      .where(challenge_enrollment: challenge_enrollments.where(user_id: user_ids))
+      .order(:report_date)
+      .pluck(:user_id, :report_date, :point_value)
+  
+    top_ten.map do |e|
+      reports = reports_by_user.select { |r| r[0] == e.user_id }
+      points_by_day = reports.map { |r| [r[1], r[2]] }
+      { name: e.user.full_name, data: serialize_along_timeline(points_by_day) }
+    end
   end
 
   def top_ten
@@ -116,5 +123,35 @@ class Challenge < ApplicationRecord
       .map { |r| r.user_id }
 
     challenge_enrollments.includes(:user).where(user_id: user_ids)
+  end
+
+  def serialize_along_timeline(points_by_day)
+    accumulated_points = 0
+    points_by_day.each_with_object(Hash.new(0)) do |(date, points), hash|
+      # the first iteration we know there's no previous days
+      if hash.empty?
+        # set the first date we see to the points earned that day
+        hash[date] = points
+        # add to the accumlation
+        accumulated_points += points
+        # go to the next date we see
+        next
+      # if the next date we see has a gap +1 day from the last date
+      elsif date > hash.keys.last + 1.day
+        # fill in the in between days based on the last date we saw, up to the date we have with the current accumulation since we know they didn't work those days
+        (hash.keys.last + 1.day...date).each { |gap_day| hash[gap_day] = accumulated_points }
+        # then set the date we do have work on with the accumulation + points from that date
+        hash[date] = accumulated_points + points
+        # register the accumulation
+        accumulated_points += points
+        # go to next record
+        next
+      else
+        # if the record is sequential to the previous, handle as expected
+        hash[date] = accumulated_points + points
+        accumulated_points += points
+      end
+      hash[date] = accumulated_points
+    end
   end
 end
