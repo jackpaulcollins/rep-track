@@ -93,10 +93,10 @@ class Challenge < ApplicationRecord
   end
 
   def leaderboard
-    leaderboard = reports
-    .group(:user)
-    .order('SUM(reports.point_value) DESC')
-    .sum(:point_value)
+    reports
+      .group(:user)
+      .order("SUM(reports.point_value) DESC")
+      .sum(:point_value)
   end
 
   def point_chart_data
@@ -105,11 +105,11 @@ class Challenge < ApplicationRecord
       .where(challenge_enrollment: challenge_enrollments.where(user_id: user_ids))
       .order(:report_date)
       .pluck(:user_id, :report_date, :point_value)
-  
+
     top_ten.map do |e|
       reports = reports_by_user.select { |r| r[0] == e.user_id }
       points_by_day = reports.map { |r| [r[1], r[2]] }
-      { name: e.user.full_name, data: serialize_along_timeline(points_by_day) }
+      {name: e.user.full_name, data: serialize_along_timeline(points_by_day)}
     end
   end
 
