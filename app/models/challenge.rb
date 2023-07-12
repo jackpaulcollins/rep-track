@@ -115,6 +115,6 @@ class Challenge < ApplicationRecord
       .limit(10)
       .map { |r| r.user_id }
 
-    challenge_enrollments.where(user_id: user_ids)
+    challenge_enrollments.includes(:user).where(user_id: user_ids)
   end
 end
