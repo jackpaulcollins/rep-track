@@ -42,13 +42,13 @@ class Report < ApplicationRecord
   validates :rep_count, presence: true
   validate :challenge_unit_belongs_to_challenge_enrollment
 
-  before_save :set_report_date
+  before_save :set_report_date, if: :new_record?
   before_save :calculate_point_value
 
   scope :for_user, ->(user) { where(user: user) }
 
   def calculate_point_value
-    self.point_value = self.rep_count * self.challenge_unit.points
+    self.point_value = rep_count * challenge_unit.points
   end
 
   def set_report_date

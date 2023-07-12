@@ -31,8 +31,8 @@ class ChallengeEnrollment < ApplicationRecord
 
   def total_points_series
     points_by_day = Report.where(challenge_enrollment: self)
-    .order(:report_date)
-    .pluck(:report_date, :point_value)
+      .order(:report_date)
+      .pluck(:report_date, :point_value)
 
     serialize_along_timeline(points_by_day)
   end
