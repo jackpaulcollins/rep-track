@@ -103,8 +103,18 @@ class Challenge < ApplicationRecord
   end
 
   def point_chart_data
-    data = challenge_enrollments.map { |e| {name: e.user.full_name, data: e.points_by_date} }
-    sorted_by_sum = data.sort_by { |data| -data[:data].values.sum }
-    sorted_by_sum.take(10)
+    top_ten.map { |e| {name: e.user.full_name, data: e.total_points_series} }
+  end
+
+  def top_ten
+    user_ids = Report
+      .where(challenge_id: self)
+      .group(:user_id)
+      .select("reports.user_id, SUM(reports.point_value) as total_point_value")
+      .order("total_point_value DESC")
+      .limit(10)
+      .map { |r| r.user_id }
+
+    challenge_enrollments.where(user_id: user_ids)
   end
 end

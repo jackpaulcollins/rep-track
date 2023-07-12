@@ -29,18 +29,17 @@ class ChallengeEnrollment < ApplicationRecord
 
   acts_as_tenant :account
 
-  def points_by_date
-    by_date_with_points = Report.includes(:challenge_unit)
-      .where(challenge_enrollment: self)
-      .group(:id, :report_date)
-      .order(:report_date).map { |r| [r.report_date, r.point_value] }
+  def total_points_series
+    points_by_day = Report.where(challenge_enrollment: self)
+      .order(:report_date)
+      .pluck(:report_date, :point_value)
 
-    grouped_by_date = by_date_with_points.group_by { |date, _| date }
+    serialize_along_timeline(points_by_day)
+  end
 
-    dates_and_sum = grouped_by_date.map { |date, array, _| [date, array.sum { |_, a| a }] }
-
+  def serialize_along_timeline(points_by_day)
     accumulated_points = 0
-    dates_and_sum.each_with_object(Hash.new(0)) do |(date, points), hash|
+    points_by_day.each_with_object(Hash.new(0)) do |(date, points), hash|
       # the first iteration we know there's no previous days
       if hash.empty?
         # set the first date we see to the points earned that day

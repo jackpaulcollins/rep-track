@@ -3,6 +3,7 @@
 # Table name: reports
 #
 #  id                      :bigint           not null, primary key
+#  point_value             :float
 #  rep_count               :integer          not null
 #  report_date             :date
 #  created_at              :datetime         not null
