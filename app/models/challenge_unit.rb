@@ -24,12 +24,12 @@ class ChallengeUnit < ApplicationRecord
   validates :points, presence: true
 
   has_many :reports, dependent: :destroy
-  after_save :enqueue_report_point_value_update, if: :points_changed?
 
   scope :active, -> { where(state: "active") }
 
-  def enqueue_report_point_value_update
-    ReportPointValueUpdateJob.perform_later(id)
+  def points=(value)
+    Reports::ReportPointValueUpdateJob.perform_later(id) if persisted? && value.to_i != points
+    super(value)
   end
 
   state_machine initial: :active do
