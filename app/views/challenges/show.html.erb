@@ -11,7 +11,9 @@
       <% end %>
 
       <% if @challenge.user_enrolled_in_challenge?(current_user) %>
-        <%= render(ModalProviderComponent.new(form: true, open_text: "New Report", header: "Report reps", form_partial: "new_report_form", form_records: [@challenge, @challenge.enrollment_for_user(current_user)], open_styling: :primary_button)) %>
+        <% if @challenge.active_for_user?(current_user) %>
+          <%= render(ModalProviderComponent.new(form: true, open_text: "New Report", header: "Report reps", form_partial: "new_report_form", form_records: [@challenge, @challenge.enrollment_for_user(current_user)], open_styling: :primary_button)) %>
+        <% end %>
         <%= button_to "Unenroll", unenroll_challenge_enrollment_path(@challenge, user_id: current_user.id), method: :post, class: "btn btn-danger mr-2", data: { turbo_confirm: "Unenrolling will erase your points." } %>
       <% end %>
       <% if @challenge.is_challenge_owner?(current_user) %>
