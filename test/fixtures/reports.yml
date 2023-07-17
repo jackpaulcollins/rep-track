@@ -4,7 +4,7 @@
 #
 #  id                      :bigint           not null, primary key
 #  point_value             :float
-#  rep_count               :integer          not null
+#  rep_count               :float            not null
 #  report_date             :date
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null

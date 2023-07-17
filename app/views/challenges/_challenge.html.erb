@@ -21,6 +21,11 @@
     <div class="p-4 mb-2">
       <p class="text-center text-lg mb-8 font-medium"> Top 10 By Date </p>
       <%= line_chart chart_data_challenge_path %>
+      <p class="text-center text-lg mt-4 mb-8 font-medium"> Distribution </p>
+      <%= pie_chart Report.where(challenge: challenge)
+                          .joins(:challenge_unit)
+                          .group('challenge_units.rep_name')
+                          .pluck(Arel.sql('challenge_units.rep_name, COUNT(*)')) %>
     </div>
     <div class="mx-auto flex w-full max-w-7xl justify-between gap-x-8 px-4 py-10 sm:px-6 lg:px-4">
 
