@@ -6,9 +6,6 @@ class ChallengesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_to_default_account, only: [:public_challenges]
 
-  # <% users = challenge.users %>
-  # <% chart_data = users.map { |u| { name: u.first_name, data: u.reports.group_by_day(:created_at).count} } %>
-
   def chart_data
     render json: @challenge.point_chart_data
   end
