@@ -25,7 +25,7 @@
       <%= pie_chart Report.where(challenge: challenge)
                           .joins(:challenge_unit)
                           .group('challenge_units.rep_name')
-                          .pluck(Arel.sql('challenge_units.rep_name, COUNT(*)')) %>
+                          .pluck(Arel.sql('challenge_units.rep_name, SUM(rep_count)')) %>
     </div>
     <div class="mx-auto flex w-full max-w-7xl justify-between gap-x-8 px-4 py-10 sm:px-6 lg:px-4">
 
