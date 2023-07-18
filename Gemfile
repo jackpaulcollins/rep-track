@@ -44,7 +44,7 @@ gem "nokogiri", ">= 1.12.5"
 
 gem "newrelic_rpm"
 gem "postmark-rails"
-gem "subroutine", "~> 1.0", ">= 1.0.1"
+gem "subroutine", "~> 3.0"
 gem "clipboard"
 gem "state_machines-activerecord"
 gem "view_component"
