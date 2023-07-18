@@ -93,9 +93,6 @@ class User < ApplicationRecord
   validates :avatar, resizable_image: true
   before_validation :set_default_timezone
 
-  attr_accessor :skip_add_to_default_account
-  after_create :add_to_default_account!, unless: :skip_add_to_default_account?
-
   def has_default_account?
     !default_account.nil?
   end
@@ -109,19 +106,10 @@ class User < ApplicationRecord
     self.time_zone ||= "Pacific Time (US & Canada)" if time_zone.nil?
   end
 
-  def add_to_default_account!
-    return if account_users.map(&:account_id).include?(Account.default_account.id)
-    Account.default_account.account_users.create!(user: self, roles: {"admin" => false, "member" => true})
-  end
-
   def add_to_account_from_challenge!(c)
     return if account_users.map(&:account_id).include?(c.account.id)
     c.account.account_users.create!(user: self, roles: {"admin" => false, "member" => true})
     reload
-  end
-
-  def skip_add_to_default_account?
-    skip_add_to_default_account
   end
 
   def full_name

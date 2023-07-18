@@ -9,7 +9,6 @@ module UserAccounts
     has_one :personal_account, -> { where(personal: true) }, class_name: "Account", foreign_key: :owner_id, inverse_of: :owner, dependent: :destroy
 
     # Regular users should get their account created immediately
-    # after_create :create_default_account, unless: :skip_default_account?
     after_update :sync_personal_account_name, if: -> { Jumpstart.config.personal_accounts }
 
     accepts_nested_attributes_for :owned_accounts, reject_if: :all_blank
