@@ -7,7 +7,7 @@ class ChallengesTest < ApplicationSystemTestCase
     login_as(@user)
   end
 
-test "visiting the index" do
+  test "visiting the index" do
     visit my_challenges_challenges_path
     assert_selector "h1", text: "My Challenges"
   end

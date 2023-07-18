@@ -3,7 +3,7 @@ user = User.create!(
   email: "jack@reptrack.xyz",
   password: "password",
   password_confirmation: "password",
-  terms_of_service: true,
+  terms_of_service: true
 )
 Jumpstart.grant_system_admin!(user)
 
