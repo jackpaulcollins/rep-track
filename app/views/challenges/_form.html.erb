@@ -17,26 +17,6 @@
     <%= form.date_field :end_date, class: "form-control" %>
   </div>
 
-  <div class="form-group">
-
-    <% if current_account == Account.default_account %>
-      <span class="text-xs">
-        Note: challenges created on the RepTrack account are public. If you'd like to create a private challenge, please login to your personal account
-      <span>
-    <% else %>
-    <div
-      class="inline-flex"
-      data-controller="tooltip"
-      data-tippy-content="Anyone can join a public challenge, and checking public will create this challenge on the RepTrack accouint. Leave unchecked if you'd like to limit participation to invite only">
-      <i class="fa-solid fa-circle-info"></i>
-    </div>
-      <div class="flex flex-row items-top">
-        <%= form.label :public %>
-        <%= form.check_box :is_public_challenge, class: "ml-2 mt-0.5" %>
-      </div>
-    <% end %>
-  </div>
-
   <div>
     <%= form.button button_text(form.send(:submit_default_value)), class: "btn btn-primary" %>
 

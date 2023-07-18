@@ -37,7 +37,6 @@ class Challenge < ApplicationRecord
   validates :name, presence: true
 
   acts_as_tenant :account
-  scope :public_challenges, -> { where(is_public_challenge: true) }
 
   scope :current_user_enrolled_challenges, ->(user) {
     joins(:challenge_enrollments).where(challenge_enrollments: {user_id: user.id})
@@ -51,10 +50,6 @@ class Challenge < ApplicationRecord
   def active_for_user?(user)
     current_time = Time.current.in_time_zone(user.time_zone)
     start_date <= current_time.to_date && (end_date.nil? || end_date >= current_time.to_date)
-  end
-
-  def public_data_display
-    is_public_challenge ? "Yes" : "No"
   end
 
   def end_date_display

@@ -1,26 +1,6 @@
 module Challenges::ChallengeConcern
   extend ActiveSupport::Concern
 
-  def handle_public_challenge
-    ActsAsTenant.with_tenant(Account.default_account) do
-      @challenge.account_id = Account.default_account
-      respond_to do |format|
-        if @challenge.save
-          format.turbo_stream do
-            render turbo_stream: turbo_stream.replace(
-              "new_challenge_placeholder",
-              partial: "challenges/challenge_units_form",
-              locals: {challenge: @challenge}
-            )
-          end
-        else
-          format.html { render :new, status: :unprocessable_entity }
-          format.json { render json: @challenge.errors, status: :unprocessable_entity }
-        end
-      end
-    end
-  end
-
   def validate_units(units_params)
     units_params.each do |unit_params|
       @challenge.challenge_units.build(unit_params)

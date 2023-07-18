@@ -4,7 +4,6 @@ class ChallengesController < ApplicationController
   include Challenges::ChallengeConcern
   before_action :set_challenge, only: [:user_reports, :bulk_invite, :submit_bulk_invite, :show, :edit, :update, :destroy, :add_units, :new_unit_form, :chart_data]
   before_action :authenticate_user!
-  before_action :set_to_default_account, only: [:public_challenges]
 
   def chart_data
     render json: @challenge.point_chart_data
@@ -22,11 +21,6 @@ class ChallengesController < ApplicationController
 
   def current_user_challenges
     @pagy, @challenges = pagy(Challenge.current_user_enrolled_challenges(current_user).sort_by_params(params[:sort], sort_direction))
-  end
-
-  def public_challenges
-    @pagy, @public_challenges = pagy(Challenge.unscoped.public_challenges.sort_by_params(params[:sort], sort_direction))
-    render :public_challenges
   end
 
   def bulk_invite
@@ -92,9 +86,6 @@ class ChallengesController < ApplicationController
     @challenge = Challenge.new(challenge_params)
     @challenge.challenge_owner = current_user
 
-    # ensures the account id is the default account
-    return handle_public_challenge if @challenge.is_public_challenge?
-
     respond_to do |format|
       if @challenge.save
         format.turbo_stream do
@@ -135,13 +126,6 @@ class ChallengesController < ApplicationController
 
   private
 
-  def set_to_default_account
-    ensure_current_user_in_default_account
-    flash.now[:notice] = "Heads up, when you view public challenges you are automatically logged into the RepTrack account. Use the account picker to switch back if you want to see private challenges." unless Current.account == Account.default_account
-    Current.account = Account.default_account
-    session[:account_id] = Account.default_account.id
-  end
-
   def ensure_current_user_in_default_account
     return if current_user.account_users.map(&:account_id).include?(Account.default_account.id)
 
@@ -159,6 +143,6 @@ class ChallengesController < ApplicationController
   end
 
   def challenge_params
-    params.require(:challenge).permit(:name, :start_date, :end_date, :is_public_challenge, :account_id)
+    params.require(:challenge).permit(:name, :start_date, :end_date, :account_id)
   end
 end
