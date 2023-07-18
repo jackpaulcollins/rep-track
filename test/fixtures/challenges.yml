@@ -28,7 +28,6 @@ one:
   start_date: 2023-06-11
   end_date: 2023-06-11
   account: one
-  public: true
   challenge_owner: one
 
 two:
@@ -36,5 +35,4 @@ two:
   start_date: 2023-06-11
   end_date: 2023-06-11
   account: two
-  public: false
   challenge_owner: one
