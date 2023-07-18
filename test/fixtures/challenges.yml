@@ -2,15 +2,14 @@
 #
 # Table name: challenges
 #
-#  id                  :bigint           not null, primary key
-#  end_date            :date
-#  is_public_challenge :boolean          default(FALSE), not null
-#  name                :string           not null
-#  start_date          :date             not null
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  account_id          :bigint
-#  challenge_owner_id  :bigint           not null
+#  id                 :bigint           not null, primary key
+#  end_date           :date
+#  name               :string           not null
+#  start_date         :date             not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  account_id         :bigint
+#  challenge_owner_id :bigint           not null
 #
 # Indexes
 #
