@@ -3,6 +3,8 @@ require "test_helper"
 class ChallengesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @challenge = challenges(:one)
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should get index" do

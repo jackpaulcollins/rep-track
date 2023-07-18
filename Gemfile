@@ -62,6 +62,7 @@ group :development, :test do
   gem "letter_opener_web", "~> 2.0"
   gem "standard", require: false
   gem "erb_lint", require: false
+  gem "pry-byebug"
 
   # Security tooling to
   # gem "brakeman"
@@ -80,7 +81,6 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
-  gem "pry-byebug"
   gem "faker", require: false
 end
 
