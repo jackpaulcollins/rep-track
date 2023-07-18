@@ -28,7 +28,7 @@ class Challenge < ApplicationRecord
   belongs_to :challenge_owner, class_name: "User"
 
   has_many :challenge_units, dependent: :destroy
-  has_many :challenge_enrollments, dependent: :destroy
+  has_many :challenge_enrollments, dependent: :delete_all
   has_many :users, through: :challenge_enrollments
   has_many :reports, dependent: :destroy
   has_many :challenge_invitations, dependent: :destroy
