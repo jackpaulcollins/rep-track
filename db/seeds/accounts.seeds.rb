@@ -4,7 +4,6 @@ user = User.create!(
   password: "password",
   password_confirmation: "password",
   terms_of_service: true,
-  skip_add_to_default_account: true
 )
 Jumpstart.grant_system_admin!(user)
 
