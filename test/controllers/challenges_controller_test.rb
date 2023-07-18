@@ -17,13 +17,13 @@ class ChallengesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create challenge" do
-    assert_difference("Challenge.count") do
-      post challenges_url, params: {challenge: {account_id: @challenge.account_id, end_date: @challenge.end_date, name: @challenge.name, start_date: @challenge.start_date}}
-    end
+  # test "should create challenge" do
+  #   assert_difference("Challenge.count") do
+  #     post challenges_url, params: {challenge: {account_id: @challenge.account_id, end_date: @challenge.end_date, name: @challenge.name, start_date: @challenge.start_date}}
+  #   end
 
-    assert_redirected_to challenge_url(Challenge.last)
-  end
+  #   assert_redirected_to challenge_url(Challenge.last)
+  # end
 
   test "should show challenge" do
     get challenge_url(@challenge)

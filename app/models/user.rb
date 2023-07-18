@@ -75,9 +75,9 @@ class User < ApplicationRecord
   has_many :connected_accounts, as: :owner, dependent: :destroy
   has_many :notifications, as: :recipient, dependent: :destroy
   has_many :notification_tokens, dependent: :destroy
+  has_many :challenges, through: :challenge_enrollments, dependent: :destroy
+  has_many :challenges, class_name: "Challenge", foreign_key: "challenge_owner_id", dependent: :destroy
   has_many :challenge_enrollments, dependent: :destroy
-  has_many :challenges, through: :challenge_enrollments, dependent: :delete_all
-  has_many :challenges, class_name: "Challenge", foreign_key: "challenge_owner_id", dependent: :delete_all
   has_many :reports, dependent: :destroy
   belongs_to :default_account, class_name: "Account", foreign_key: "default_account_id", optional: true
 
