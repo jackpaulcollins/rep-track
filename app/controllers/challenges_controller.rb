@@ -2,11 +2,15 @@ require_relative "../services/bulk_invite_service"
 
 class ChallengesController < ApplicationController
   include Challenges::ChallengeConcern
-  before_action :set_challenge, only: [:user_reports, :bulk_invite, :submit_bulk_invite, :show, :edit, :update, :destroy, :add_units, :new_unit_form, :chart_data]
+  before_action :set_challenge, only: [:user_reports, :bulk_invite, :submit_bulk_invite, :show, :edit, :update, :destroy, :add_units, :new_unit_form, :daily_progress_data, :rep_distribution_data]
   before_action :authenticate_user!
 
-  def chart_data
+  def daily_progress_data
     render json: @challenge.point_chart_data
+  end
+
+  def rep_distribution_data
+    render json: @challenge.rep_distribution_data
   end
 
   def user_reports

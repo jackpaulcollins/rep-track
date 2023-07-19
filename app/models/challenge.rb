@@ -120,4 +120,11 @@ class Challenge < ApplicationRecord
 
     challenge_enrollments.includes(:user).where(user_id: user_ids)
   end
+
+  def rep_distribution_data
+    Report.where(challenge: self)
+      .joins(:challenge_unit)
+      .group("challenge_units.rep_name")
+      .pluck(Arel.sql("challenge_units.rep_name, SUM(rep_count)"))
+  end
 end
